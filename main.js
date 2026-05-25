@@ -97,7 +97,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const category = card.getAttribute('data-category');
                 card.classList.remove('appear'); // Reset animation
 
-                if (filter === 'all' || filter === category) {
+                const categories = category ? category.split(' ') : [];
+                if (filter === 'all' || categories.includes(filter)) {
                     card.style.display = 'block';
                     // Re-trigger animation with delay
                     setTimeout(() => {
@@ -433,6 +434,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Project Modals Controller
     const projectData = {
+        'autoportfolio': {
+            title: 'AutoPortfolio',
+            tags: ['SaaS', 'React', 'Next.js', 'Vercel', 'TailwindCSS'],
+            img: 'public/autoportfolio.png',
+            description: 'AutoPortfolio is a SaaS platform that helps developers, students, and professionals create and deploy modern portfolio websites in minutes without dealing with design complexity, hosting setup, or frontend development.',
+            link: 'https://auto-portfolio-rho.vercel.app/'
+        },
         'password-visualizer': {
             title: 'Password Strength Visualizer',
             tags: ['JavaScript', 'Security', 'UI'],
