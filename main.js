@@ -400,28 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
     createParticles();
     animate();
 
-    // Custom Cursor Logic
-    const cursorDot = document.getElementById('cursor-dot');
-    const cursorOutline = document.getElementById('cursor-outline');
-    let cursorX = 0, cursorY = 0;
-    let outlineX = 0, outlineY = 0;
 
-    window.addEventListener('mousemove', (e) => {
-        cursorX = e.clientX;
-        cursorY = e.clientY;
-        cursorDot.style.left = `${cursorX}px`;
-        cursorDot.style.top = `${cursorY}px`;
-    });
-
-    // Smooth lerp for cursor outline
-    function animateCursor() {
-        outlineX += (cursorX - outlineX) * 0.15;
-        outlineY += (cursorY - outlineY) * 0.15;
-        cursorOutline.style.left = `${outlineX}px`;
-        cursorOutline.style.top = `${outlineY}px`;
-        requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
 
     // Scroll Progress Indicator
     const scrollBar = document.getElementById('scroll-bar');
