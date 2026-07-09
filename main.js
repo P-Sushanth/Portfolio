@@ -149,15 +149,39 @@ document.addEventListener('DOMContentLoaded', () => {
     // Smooth Scroll for Nav Links
     document.querySelectorAll('.nav-links a, .scroll-down a').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault();
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
 
+            // If 3D mode is active, steer the telescope instead of scrolling the page
+            if (document.body.classList.contains('three-d-active')) {
+                e.preventDefault();
+                let key = null;
+                if (targetId === '#home') key = 'home';
+                else if (targetId === '#about') key = 'about';
+                else if (targetId === '#projects') key = 'projects';
+                else if (targetId === '#education') key = 'education';
+                else if (targetId === '#contact') key = 'contact';
+
+                if (key && window.zoomToThreeConstellation) {
+                    window.zoomToThreeConstellation(key);
+                }
+
+                // Update Active Link styling
+                document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+                return;
+            }
+
+            e.preventDefault();
             const targetElement = document.querySelector(targetId);
-            window.scrollTo({
-                top: targetElement.offsetTop - 70,
-                behavior: 'smooth'
-            });
+            if (targetElement) {
+                const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+                const offsetPosition = elementPosition - 70;
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
 
             // Update Active Link
             document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
@@ -504,6 +528,20 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
+
+    function openCustomModal(title, htmlContent) {
+        modalBody.innerHTML = `
+            <div class="modal-content" style="max-width: 600px; margin: 0 auto;">
+                <h3 style="margin-bottom: 1.5rem; text-align: center; font-family: 'Newsreader', serif; font-size: 2.5rem;">${title}</h3>
+                ${htmlContent}
+            </div>
+        `;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    window.openPortfolioModal = openModal;
+    window.openCustomModal = openCustomModal;
 
     function closeModal() {
         modal.classList.remove('active');

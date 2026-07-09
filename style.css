@@ -1481,3 +1481,144 @@ footer {
         clip-path: circle(150% at var(--ripple-x) var(--ripple-y));
     }
 }
+
+/* ==========================================================================
+   3D Portfolio Mode (Three.js & Telescope Constellation View)
+   ========================================================================== */
+
+/* Toggle Button */
+.three-d-toggle {
+    background: transparent;
+    border: 1px solid var(--text-muted);
+    color: var(--text);
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.three-d-toggle:hover {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: var(--background);
+}
+
+body.three-d-active .three-d-toggle {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: var(--background);
+}
+
+/* 3D Container & Canvas */
+.three-container {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+    background: #000; /* Force pure black background in 3D mode */
+}
+
+#three-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Transitions when 3D Mode is active */
+body.three-d-active .three-container {
+    z-index: 50; /* Sits behind navbar but above the main content */
+    opacity: 1;
+    pointer-events: all;
+}
+
+body.three-d-active main,
+body.three-d-active .hero,
+body.three-d-active #particle-canvas,
+body.three-d-active footer {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Telescope Eyepiece Vignette Overlay */
+.telescope-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, transparent 35%, rgba(0, 0, 0, 0.95) 75%);
+    pointer-events: none;
+    z-index: 60;
+    opacity: 0;
+    transition: opacity 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.telescope-vignette.visible {
+    opacity: 1;
+}
+
+/* Skip Intro Button */
+.skip-btn {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    padding: 0.75rem 2rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    z-index: 100;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.skip-btn:hover {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.skip-btn.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, 20px);
+}
+
+/* Custom styles for 3D label UI popups */
+.star-label-popup {
+    position: absolute;
+    background: rgba(var(--surface-rgb, 17, 17, 17), 0.85);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    color: var(--text);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    pointer-events: none;
+    z-index: 70;
+    transform: translate(-50%, -120%);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.star-label-popup.visible {
+    opacity: 1;
+}
