@@ -1526,7 +1526,8 @@ body.three-d-active .three-d-toggle {
     opacity: 0;
     pointer-events: none;
     transition: opacity 1.5s cubic-bezier(0.19, 1, 0.22, 1);
-    background: #000; /* Force pure black background in 3D mode */
+    background: #000;
+    /* Force pure black background in 3D mode */
 }
 
 #three-canvas {
@@ -1537,7 +1538,8 @@ body.three-d-active .three-d-toggle {
 
 /* Transitions when 3D Mode is active */
 body.three-d-active .three-container {
-    z-index: 50; /* Sits behind navbar but above the main content */
+    z-index: 50;
+    /* Sits behind navbar but above the main content */
     opacity: 1;
     pointer-events: all;
 }
@@ -1621,4 +1623,63 @@ body.three-d-active footer {
 
 .star-label-popup.visible {
     opacity: 1;
-}
+}
+
+/* ==========================================================================
+   Rocket Mouse Cursor (2D View Only)
+   ========================================================================== */
+
+#rocket-cursor-container {
+    display: none; /* Shown dynamically on mousemove if hover matches */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 999990;
+}
+
+.rocket-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    pointer-events: none;
+    z-index: 999992;
+    transform: translate(-12px, -2px) rotate(-45deg);
+    transform-origin: 12px 2px;
+    will-change: transform;
+    transition: transform 0.08s ease-out; /* minor damping */
+}
+
+/* Rocket SVG size */
+.rocket-svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+/* Hide standard cursor on desktop (fine pointers) in 2D view */
+@media (pointer: fine) {
+    body:not(.three-d-active),
+    body:not(.three-d-active) a,
+    body:not(.three-d-active) button,
+    body:not(.three-d-active) select,
+    body:not(.three-d-active) input,
+    body:not(.three-d-active) textarea,
+    body:not(.three-d-active) [role="button"],
+    body:not(.three-d-active) .project-card,
+    body:not(.three-d-active) .skill-list li,
+    body:not(.three-d-active) .filter-btn,
+    body:not(.three-d-active) .theme-toggle,
+    body:not(.three-d-active) .socials a {
+        cursor: none !important;
+    }
+}
+
+/* Hide the rocket cursor completely when 3D mode is active */
+body.three-d-active #rocket-cursor-container {
+    display: none !important;
+}
