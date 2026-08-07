@@ -12,7 +12,10 @@
     "vite": "^5.0.0"
   },
   "dependencies": {
+    "@use-gesture/react": "^10.3.1",
     "gsap": "^3.15.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
     "three": "^0.185.1"
   }
 }
