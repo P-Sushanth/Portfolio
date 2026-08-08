@@ -78,10 +78,12 @@ const CONSTELLATIONS = {
         stars: [
             { id: "contact-email", name: "Email Me", x: 26, y: -16, z: -30, size: 0.8, type: "contact", url: "mailto:popurisushanth@gmail.com" },
             { id: "contact-linkedin", name: "LinkedIn Profile", x: 36, y: -24, z: -40, size: 0.8, type: "contact", url: "https://www.linkedin.com/in/p-sushanth-a04587312" },
-            { id: "contact-github", name: "GitHub Profile", x: 22, y: -25, z: -32, size: 0.8, type: "contact", url: "https://github.com/P-Sushanth" }
+            { id: "contact-github", name: "GitHub Profile", x: 22, y: -25, z: -32, size: 0.8, type: "contact", url: "https://github.com/P-Sushanth" },
+            { id: "contact-medium", name: "Medium Profile", x: 32, y: -14, z: -35, size: 0.8, type: "contact", url: "https://medium.com/@popurisushanth" },
+            { id: "contact-producthunt", name: "Product Hunt Profile", x: 18, y: -18, z: -28, size: 0.8, type: "contact", url: "https://www.producthunt.com/@p_sushanth" }
         ],
         connections: [
-            [0, 1], [1, 2], [2, 0]
+            [0, 1], [1, 3], [3, 2], [2, 4], [4, 0]
         ]
     }
 };
@@ -126,7 +128,7 @@ function initThree() {
     // Camera
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
     // Start way back for the outer night sky view
-    camera.position.set(0, 45, 120); 
+    camera.position.set(0, 45, 120);
     camera.lookAt(0, 15, -20);
 
     // Renderer
@@ -514,7 +516,7 @@ function onMouseMove(event) {
 
             // Scale up the star mesh
             gsap.to(object.scale, { x: 1.5, y: 1.5, z: 1.5, duration: 0.3 });
-            
+
             // Brighten its constellation line network
             const type = object.userData.type;
             brightenConstellationLines(type, true);
@@ -563,7 +565,7 @@ function onMouseClick() {
     if (!controlsActive || isIntroPlaying || !hoveredObject) return;
 
     const uData = hoveredObject.userData;
-    
+
     // Smooth camera focus zoom towards clicked star
     controlsActive = false;
     resetHovered();
@@ -718,7 +720,7 @@ function toggle3DMode(enable) {
     if (enable) {
         document.body.classList.add('three-d-active');
         toggleBtn.textContent = "2D View";
-        
+
         // Reset base positions
         if (defaultTarget) defaultTarget.set(0, 0, -20);
         if (baseCameraPos) baseCameraPos.set(0, 0, 26);
@@ -727,7 +729,7 @@ function toggle3DMode(enable) {
         if (!scene) {
             initThree();
         }
-        
+
         // Start Render Loop
         if (!animationFrameId) {
             animate(0);
@@ -793,7 +795,7 @@ function zoomToConstellation(key) {
     if (!data) return;
 
     const targetPos = new THREE.Vector3(data.center.x, data.center.y, data.center.z);
-    
+
     // Zoomed camera position
     const cameraZoomPos = new THREE.Vector3(
         targetPos.x,
@@ -873,17 +875,17 @@ function createGrassTexture() {
     canvas.width = 128;
     canvas.height = 128;
     const ctx = canvas.getContext('2d');
-    
+
     // Dark nocturnal grass base color
     ctx.fillStyle = '#0a140f';
     ctx.fillRect(0, 0, 128, 128);
-    
+
     // Draw fine grass strands
     for (let i = 0; i < 3000; i++) {
         ctx.fillStyle = `rgb(8, ${20 + Math.random() * 25}, 12)`;
         ctx.fillRect(Math.random() * 128, Math.random() * 128, 1, 2 + Math.random() * 3);
     }
-    
+
     const texture = new THREE.CanvasTexture(canvas);
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
@@ -896,17 +898,17 @@ function createWoodTexture() {
     canvas.width = 128;
     canvas.height = 128;
     const ctx = canvas.getContext('2d');
-    
+
     // Deep mahogany wood tone
     ctx.fillStyle = '#2b1a11';
     ctx.fillRect(0, 0, 128, 128);
-    
+
     // Add grain texture
     ctx.fillStyle = '#1c0f0a';
     for (let i = 0; i < 128; i += 3) {
         ctx.fillRect(0, i + Math.floor(Math.random() * 3), 128, 1 + Math.floor(Math.random() * 2));
     }
-    
+
     const texture = new THREE.CanvasTexture(canvas);
     return texture;
 }
@@ -943,7 +945,7 @@ function createObservationScene() {
         roughness: 0.85,
         map: createWoodTexture()
     });
-    
+
     const postGeo = new THREE.CylinderGeometry(0.08, 0.08, 1.8, 8);
     const slatGeo = new THREE.BoxGeometry(6, 0.15, 0.04);
 
@@ -984,7 +986,7 @@ function createObservationScene() {
         const leg = new THREE.Mesh(legGeo, metalDarkMat);
         leg.geometry.translate(0, -0.75, 0); // Translate origin to pivot
         leg.position.set(0, 1.4, 0);
-        
+
         const angle = (i * Math.PI * 2) / 3;
         leg.rotation.z = 0.22;
         leg.rotation.y = angle;

@@ -627,4 +627,99 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- ROCKET MOUSE CURSOR ---
+    function initRocketCursor() {
+        const rocketContainer = document.getElementById('rocket-cursor-container');
+        const rocketCursor = document.getElementById('rocket-cursor');
+        if (!rocketContainer || !rocketCursor) return;
+
+        let mouseX = 0, mouseY = 0;
+        let lastMouseX = 0, lastMouseY = 0;
+        let rocketX = 0, rocketY = 0;
+        let angle = -45; // in degrees
+        let targetAngle = -45;
+        let speed = 0;
+        let isHovering = false;
+        let cursorVisible = false;
+
+        // Track mouse movement
+        window.addEventListener('mousemove', (e) => {
+            if (document.body.classList.contains('three-d-active')) return;
+
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // Make cursor visible on first movement on desktop
+            if (!cursorVisible && window.matchMedia('(hover: hover)').matches) {
+                rocketContainer.style.display = 'block';
+                rocketX = mouseX;
+                rocketY = mouseY;
+                lastMouseX = mouseX;
+                lastMouseY = mouseY;
+                cursorVisible = true;
+            }
+        });
+
+        // Hover effect for clickable elements
+        window.addEventListener('mouseover', (e) => {
+            if (document.body.classList.contains('three-d-active')) return;
+
+            const target = e.target;
+            const isClickable = target.closest('a, button, select, input, textarea, [role="button"], .project-card, .skill-list li, .filter-btn, .theme-toggle, .socials a');
+            if (isClickable) {
+                isHovering = true;
+                rocketCursor.classList.add('hovering');
+            } else {
+                isHovering = false;
+                rocketCursor.classList.remove('hovering');
+            }
+        });
+
+        // Animation Loop
+        function updateRocket() {
+            if (document.body.classList.contains('three-d-active')) {
+                // If 3D view is active, just loop without doing work to save resources
+                requestAnimationFrame(updateRocket);
+                return;
+            }
+
+            if (!cursorVisible) {
+                requestAnimationFrame(updateRocket);
+                return;
+            }
+
+            // Lerp coordinate positions for smooth movement
+            rocketX = rocketX + (mouseX - rocketX) * 0.22;
+            rocketY = rocketY + (mouseY - rocketY) * 0.22;
+
+            // Calculate movement vector and speed
+            const dx = mouseX - lastMouseX;
+            const dy = mouseY - lastMouseY;
+            speed = Math.sqrt(dx * dx + dy * dy);
+
+            lastMouseX = mouseX;
+            lastMouseY = mouseY;
+
+            if (speed > 1.2) {
+                // Rocket faces the direction of travel (offset by 90 degrees since SVG points up)
+                let moveAngle = Math.atan2(dy, dx) * 180 / Math.PI;
+                targetAngle = moveAngle + 90;
+            }
+
+            // Interpolate angle rotation (handling 360-deg wrapping)
+            let diff = targetAngle - angle;
+            while (diff < -180) diff += 360;
+            while (diff > 180) diff -= 360;
+            angle += diff * 0.15;
+
+            // Apply transforms (translate and rotate around the tip)
+            const scale = isHovering ? 1.3 : 1.0;
+            rocketCursor.style.transform = `translate3d(${rocketX - 12}px, ${rocketY - 2}px, 0) rotate(${angle}deg) scale(${scale})`;
+
+            requestAnimationFrame(updateRocket);
+        }
+        requestAnimationFrame(updateRocket);
+    }
+    initRocketCursor();
 });
