@@ -625,6 +625,11 @@ img {
     color: var(--primary);
 }
 
+.btn.small {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.8rem;
+}
+
 .btn.secondary:hover {
     background: var(--primary);
     color: var(--background);
