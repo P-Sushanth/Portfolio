@@ -331,6 +331,7 @@ html.light-theme {
 /* Default Theme (Dark) Overrides */
 html:not(.light-theme) {
     --primary: #ffffff;
+    --primary-rgb: 255, 255, 255;
     --background: #080808;
     --surface: #111111;
     --surface-light: #1a1a1a;
@@ -883,28 +884,54 @@ img {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 3rem;
+    perspective: 1000px; /* Enable 3D space for children */
 }
 
 .project-card {
     background: var(--surface);
     border: 1px solid var(--glass-border);
     padding: 2.5rem;
-    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
+    transition: border-color 0.5s cubic-bezier(0.19, 1, 0.22, 1), 
+                box-shadow 0.5s cubic-bezier(0.19, 1, 0.22, 1), 
+                transform 0.15s ease-out;
+}
+
+.project-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(var(--primary-rgb), 0.08), transparent 80%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.project-card:hover::before {
+    opacity: 1;
 }
 
 .project-card:hover {
     border-color: var(--primary);
-    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 30px rgba(var(--primary-rgb), 0.04);
 }
 
 .project-img {
-    height: 180px;
+    height: 230px;
     margin-bottom: 2rem;
     background: var(--surface-light);
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    transform: translateZ(25px);
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    position: relative;
+    z-index: 2;
 }
 
 .project-img img {
@@ -912,12 +939,11 @@ img {
     height: 100%;
     object-fit: cover;
     filter: none;
-    /* Explicitly ensure no filters are applied */
-    transition: transform 0.5s ease;
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .project-card:hover .project-img img {
-    transform: scale(1.05);
+    transform: scale(1.06);
 }
 
 .img-placeholder {
@@ -926,20 +952,31 @@ img {
     opacity: 0.2;
 }
 
+.project-body {
+    position: relative;
+    z-index: 2;
+}
+
 .project-body h3 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
+    transform: translateZ(20px);
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .project-body p {
     font-size: 0.9rem;
     color: var(--text-muted);
     margin-bottom: 2rem;
+    transform: translateZ(15px);
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .tags {
     display: flex;
     gap: 1rem;
+    transform: translateZ(18px);
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .tags span {
@@ -947,23 +984,40 @@ img {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--text-muted);
+    background: var(--surface-light);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    border: 1px solid var(--glass-border);
 }
 
 .project-link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     margin-top: 1.5rem;
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     color: var(--primary);
     text-decoration: none;
-    font-weight: 500;
-    transition: var(--transition);
+    font-weight: 600;
+    transform: translateZ(22px);
+    transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1), 
+                color 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.project-link::after {
+    content: " ↗";
+    display: inline-block;
+    margin-left: 4px;
+    transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .project-link:hover {
-    color: var(--text);
-    transform: translateX(5px);
+    color: var(--primary);
+}
+
+.project-link:hover::after {
+    transform: translate(3px, -3px);
 }
 
 /* Certifications */

@@ -548,11 +548,43 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = '';
     }
 
-    // Attach to project cards
+    // Attach interactive effects to project cards
     document.querySelectorAll('.project-card').forEach(card => {
+        // Modal Trigger
         card.addEventListener('click', () => {
             const projectId = card.getAttribute('data-project');
             if (projectId) openModal(projectId);
+        });
+
+        // 3D Tilt & Interactive Spotlight Glow
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Update CSS variables for border glow spotlight
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+
+            // Calculate rotation angles based on mouse offsets from card center
+            const width = rect.width;
+            const height = rect.height;
+            const centerX = width / 2;
+            const centerY = height / 2;
+            
+            const deltaX = (x - centerX) / centerX;
+            const deltaY = (y - centerY) / centerY;
+
+            const maxRotation = 8; // Max tilt rotation in degrees
+            const rotateX = -deltaY * maxRotation;
+            const rotateY = deltaX * maxRotation;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            // Smoothly reset transformations when mouse exits card boundaries
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
         });
     });
 
