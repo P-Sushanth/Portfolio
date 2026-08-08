@@ -83,7 +83,10 @@ export default function ProjectsGallery() {
     if (filter === 'all') return true;
     const categories = project.category.split(' ');
     return categories.includes(filter);
-  });
+  }).map(p => ({
+    ...p,
+    image: `${import.meta.env.BASE_URL || '/'}${p.image.replace(/^\//, '')}`
+  }));
 
   return (
     <div>
