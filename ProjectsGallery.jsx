@@ -7,7 +7,7 @@ const ALL_PROJECTS = [
     title: 'Portlio',
     description: 'A SaaS platform that helps developers, students, and professionals create and deploy modern portfolio websites in minutes.',
     tags: ['SaaS', 'React', 'Next.js', 'Vercel'],
-    link: 'https://auto-portfolio-rho.vercel.app/',
+    link: 'https://theportlio.com',
     category: 'web saas'
   },
   {
