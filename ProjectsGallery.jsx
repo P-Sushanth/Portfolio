@@ -73,6 +73,14 @@ const ALL_PROJECTS = [
     tags: ['Performance', 'UI'],
     link: 'https://p-sushanth.github.io/Typing-Test/',
     category: 'web'
+  },
+  {
+    image: '/custom_chrome_extension.png',
+    title: 'Pure Black Chrome Theme',
+    description: 'A minimalist, high-contrast, pure black Google Chrome theme designed for OLED displays.',
+    tags: ['Chrome Extension', 'Theme'],
+    link: 'https://github.com/P-Sushanth/custom_chrome_theme',
+    category: 'web'
   }
 ];
 
