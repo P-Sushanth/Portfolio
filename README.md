@@ -24,7 +24,7 @@ A high-end, immersive digital experience showcasing my work in AI, Quantum Compu
 To run the project locally with hot module replacement (HMR):
 ```bash
 npm install
-npm run dev
+npm run dev or cmd /c npm run dev
 ```
 
 ### GitHub Pages Auto-Deployment
