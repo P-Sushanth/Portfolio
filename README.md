@@ -31,4 +31,4 @@ npm run dev or cmd /c npm run dev
 Pushes targeting the `index.html` branch trigger a custom GitHub Action workflow (`.github/workflows/deploy.yml`) which automatically builds the static assets to `dist/` and deploys them to GitHub Pages.
 
 ---
-© 2026 P Sushanth. Built with precision and passion.
+© 2026 P Sushanth.
