@@ -6,7 +6,7 @@ A high-end, immersive digital experience showcasing my work in AI, Quantum Compu
 - **WebGL Morph Slider (Projects)**: React-based slider powered by `ogl` and `gsap` displaying project screenshots with fluid, organic WebGL morph/displacement transitions.
 - **Interactive Rocket Cursor**: Dynamic, custom-damping rocket cursor that rotates in the direction of travel, scales on hover, and hides automatically in 3D views.
 - **Research Publications**: Selected publication showcase including my paper **"Impact of Quantum Computing on RSA Cryptographic Security"** presented at the **International Conference ANITS**, complete with a direct downloadable PDF view.
-- **Advanced SVG Preloader**: A custom, elegant "S" logo with professional stroke-drawing animation on initial load.
+- **Advanced SVG Preloader**: A custom, elegant reverse "S" logo with professional stroke-drawing animation on initial load.
 - **Circular Ripple Transitions**: State-of-the-art theme toggling using the View Transition API.
 - **High-Resolution Particle Background**: Interactive 2D background that forms "P SUSHANTH" and reacts to mouse proximity.
 - **Quantum Qubit Interaction**: A shimmering, 3D-effect "Qubit" in the Research section that vibrates and "entangles" when hovered.
