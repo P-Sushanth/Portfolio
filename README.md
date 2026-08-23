@@ -2,7 +2,7 @@
 
 A high-end, immersive digital experience showcasing my work in AI, Quantum Computing, and Full-Stack Development.
 
-## ✨ Key Features
+##Key Features
 - **WebGL Morph Slider (Projects)**: React-based slider powered by `ogl` and `gsap` displaying project screenshots with fluid, organic WebGL morph/displacement transitions.
 - **Interactive Rocket Cursor**: Dynamic, custom-damping rocket cursor that rotates in the direction of travel, scales on hover, and hides automatically in 3D views.
 - **Research Publications**: Selected publication showcase including my paper **"Impact of Quantum Computing on RSA Cryptographic Security"** presented at the **International Conference ANITS**, complete with a direct downloadable PDF view.
@@ -12,14 +12,14 @@ A high-end, immersive digital experience showcasing my work in AI, Quantum Compu
 - **Quantum Qubit Interaction**: A shimmering, 3D-effect "Qubit" in the Research section that vibrates and "entangles" when hovered.
 - **Project Case Study Modals**: Deep-dive technical descriptions with glassmorphic UI.
 
-## 🛠️ Tech Stack
+##Tech Stack
 - **Framework & Build**: React 19 + Vite
 - **WebGL Shaders**: `ogl` (Minimal WebGL library) & `gsap` (GreenSock Animation Platform)
 - **Interactive Math**: Three.js
 - **Styling**: Modern, responsive Vanilla CSS
 - **Contact Handling**: Formspree
 
-## 🚀 Deployment & Local Setup
+##Deployment & Local Setup
 ### Local Development
 To run the project locally with hot module replacement (HMR):
 ```bash
