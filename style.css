@@ -75,7 +75,7 @@
 }
 
 .modal-content h3 {
-    font-family: 'Newsreader', serif;
+    font-family: 'Unica One', sans-serif;
     font-size: 2.5rem;
     margin-bottom: 1rem;
 }
@@ -171,7 +171,7 @@
 }
 
 .qubit-label {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Unica One', sans-serif;
     font-size: 0.6rem;
     letter-spacing: 0.2em;
     color: var(--text-muted);
@@ -354,7 +354,7 @@ html {
 }
 
 body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Crimson Text', Georgia, serif;
     background-color: var(--background);
     color: var(--text);
     line-height: 1.6;
@@ -384,9 +384,9 @@ h1,
 h2,
 h3,
 .logo {
-    font-family: 'Newsreader', serif;
-    font-weight: 500;
-    letter-spacing: -0.02em;
+    font-family: 'Unica One', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.05em;
 }
 
 a {
@@ -424,7 +424,7 @@ img {
 }
 
 .subtitle {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Unica One', sans-serif;
     text-transform: uppercase;
     font-size: 0.75rem;
     letter-spacing: 0.2em;
@@ -561,8 +561,8 @@ img {
 }
 
 .hero-text h2 {
-    font-family: 'Newsreader', serif;
-    font-style: italic;
+    font-family: 'Unica One', sans-serif;
+    font-style: normal;
     font-weight: 400;
     font-size: 1.5rem;
     color: var(--text-muted);
@@ -1667,7 +1667,7 @@ body.three-d-active footer {
     color: var(--text);
     padding: 0.5rem 1rem;
     border-radius: 4px;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Unica One', sans-serif;
     font-size: 0.75rem;
     letter-spacing: 0.05em;
     pointer-events: none;

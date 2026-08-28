@@ -532,7 +532,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function openCustomModal(title, htmlContent) {
         modalBody.innerHTML = `
             <div class="modal-content" style="max-width: 600px; margin: 0 auto;">
-                <h3 style="margin-bottom: 1.5rem; text-align: center; font-family: 'Newsreader', serif; font-size: 2.5rem;">${title}</h3>
+                <h3 style="margin-bottom: 1.5rem; text-align: center; font-family: 'Unica One', sans-serif; font-size: 2.5rem;">${title}</h3>
                 ${htmlContent}
             </div>
         `;
