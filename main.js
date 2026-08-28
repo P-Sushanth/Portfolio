@@ -310,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Adaptive font size based on screen width
         const fontSize = Math.min(canvas.width / 8, 120);
-        tempCtx.font = `bold ${fontSize}px Newsreader`;
+        tempCtx.font = `bold ${fontSize}px "Fugaz One"`;
         tempCtx.fillStyle = 'white';
         tempCtx.textAlign = 'center';
         tempCtx.textBaseline = 'middle';
@@ -377,7 +377,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function createParticles() {
         particles = [];
-        const numToCreate = Math.max(textCoordinates.length, 2000);
+        const extraParticles = 800; // Keep 800 particles free-floating in background
+        const numToCreate = Math.max(textCoordinates.length + extraParticles, 2500);
         for (let i = 0; i < numToCreate; i++) {
             const p = new Particle();
             if (i < textCoordinates.length) {
