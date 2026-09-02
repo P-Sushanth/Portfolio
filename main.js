@@ -438,6 +438,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Project Modals Controller
     const projectData = {
+        'ai-revenue-recovery': {
+            title: 'AI Revenue Recovery Engine',
+            tags: ['AI Agent', 'SaaS', 'Ollama (Qwen 9B)', 'Next.js 16', 'Supabase'],
+            img: 'public/AI_Revenue_Recovery.png',
+            description: 'An autonomous billing intervention platform that detects subscription payment failures, diagnoses unstructured raw bank decline logs (HDFC velocity caps, RBI e-mandate freezes) using a local LLM (qwen3.5:9b via Ollama), enforces deterministic policy guardrails, and dispatches secure single-click payment recovery links.',
+            link: 'https://github.com/P-Sushanth/AI_Revenue_Recovery'
+        },
         'autoportfolio': {
             title: 'AutoPortfolio',
             tags: ['SaaS', 'React', 'Next.js', 'Vercel', 'TailwindCSS'],

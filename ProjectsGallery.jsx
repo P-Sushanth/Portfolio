@@ -3,6 +3,14 @@ import MorphSlider from './MorphSlider';
 
 const ALL_PROJECTS = [
   {
+    image: '/AI_Revenue_Recovery.png',
+    title: 'AI Revenue Recovery Engine',
+    description: 'An autonomous subscription payment failure recovery platform powered by local LLMs (Qwen 9B) and deterministic policy guardrails to diagnose raw bank errors and recover recurring revenue.',
+    tags: ['AI / LLM', 'SaaS', 'Ollama', 'Next.js'],
+    link: 'https://github.com/P-Sushanth/AI_Revenue_Recovery',
+    category: 'ai saas web'
+  },
+  {
     image: '/portlio.png',
     title: 'Portlio',
     description: 'A SaaS platform that helps developers, students, and professionals create and deploy modern portfolio websites in minutes.',

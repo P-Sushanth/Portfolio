@@ -23,10 +23,11 @@ const CONSTELLATIONS = {
             { id: "genz-projects", name: "GENZ Projects", x: 45, y: 18, z: -50, size: 0.7, type: "project" },
             { id: "ai-legislative", name: "AI Legislative Analyser", x: 28, y: 26, z: -46, size: 0.8, type: "project" },
             { id: "geopopulation", name: "GeoPopulation Explorer", x: 48, y: 8, z: -40, size: 0.8, type: "project" },
-            { id: "quantum-fraud", name: "Quantum Fraud Detection", x: 25, y: 8, z: -32, size: 0.9, type: "project" }
+            { id: "quantum-fraud", name: "Quantum Fraud Detection", x: 25, y: 8, z: -32, size: 0.9, type: "project" },
+            { id: "ai-revenue-recovery", name: "AI Revenue Recovery Engine", x: 31, y: 27, z: -42, size: 0.95, type: "project" }
         ],
         connections: [
-            [0, 1], [1, 2], [2, 7], [7, 5], [5, 3], [3, 4], [4, 8], [8, 6], [6, 0], [0, 2] // Constellation outline
+            [0, 1], [1, 2], [2, 7], [7, 5], [5, 3], [3, 4], [4, 8], [8, 6], [6, 9], [9, 0], [0, 2] // Constellation outline
         ]
     },
     education: {
