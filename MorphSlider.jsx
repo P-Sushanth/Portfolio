@@ -81,25 +81,17 @@ mat2 rot(float a) {
   return mat2(c, -s, s, c);
 }
 
-vec2 fitUV(vec2 uv, vec2 res, vec2 img, out float mask) {
+vec2 coverUV(vec2 uv, vec2 res, vec2 img) {
   float rA = res.x / max(res.y, 1.0);
   float iA = img.x / max(img.y, 1.0);
   vec2 s = vec2(1.0);
-  float pad = 0.90; // Slightly scaled down (90%) so all 4 image edges appear clearly without cropping
-  if (rA > iA) {
-    s.x = (rA / max(iA, 0.0001)) / pad;
-    s.y = 1.0 / pad;
+  float ratio = rA / max(iA, 0.0001);
+  if (ratio > 1.0) {
+    s.y = 1.0 / ratio;
   } else {
-    s.x = 1.0 / pad;
-    s.y = (iA / max(rA, 0.0001)) / pad;
+    s.x = ratio;
   }
-  vec2 st = (uv - 0.5) * s + 0.5;
-  if (st.x < 0.0 || st.x > 1.0 || st.y < 0.0 || st.y > 1.0) {
-    mask = 0.0;
-  } else {
-    mask = 1.0;
-  }
-  return clamp(st, 0.0, 1.0);
+  return (uv - 0.5) * s + 0.5;
 }
 
 void main() {
@@ -152,10 +144,8 @@ void main() {
     }
   }
 
-  float maskC = 1.0;
-  float maskN = 1.0;
-  vec2 sC = fitUV(uvC, uResolution, uCurrentSize, maskC);
-  vec2 sN = fitUV(uvN, uResolution, uNextSize, maskN);
+  vec2 sC = coverUV(uvC, uResolution, uCurrentSize);
+  vec2 sN = coverUV(uvN, uResolution, uNextSize);
 
   float ca = uReduce < 0.5 ? uAberration * env * 0.03 : 0.0;
 
@@ -169,10 +159,6 @@ void main() {
     texture2D(tNext, sN).g,
     texture2D(tNext, sN - vec2(ca, 0.0)).b
   );
-
-  vec3 bgCol = vec3(0.043, 0.043, 0.055);
-  colC = mix(bgCol, colC, maskC);
-  colN = mix(bgCol, colN, maskN);
 
   vec3 col = mix(colC, colN, m);
 

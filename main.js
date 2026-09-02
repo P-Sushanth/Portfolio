@@ -310,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Adaptive font size based on screen width
         const fontSize = Math.min(canvas.width / 8, 120);
-        tempCtx.font = `bold ${fontSize}px "Fugaz One"`;
+        tempCtx.font = `${fontSize}px "Fugaz One", sans-serif`;
         tempCtx.fillStyle = 'white';
         tempCtx.textAlign = 'center';
         tempCtx.textBaseline = 'middle';
@@ -424,6 +424,14 @@ document.addEventListener('DOMContentLoaded', () => {
     initCanvas();
     createParticles();
     animate();
+
+    // Re-sample text once Google Fonts (Fugaz One) finish loading in browser
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+            initCanvas();
+            createParticles();
+        });
+    }
 
 
 
