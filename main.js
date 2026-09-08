@@ -272,7 +272,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (recruiterView) {
                 recruiterView.classList.remove('hidden');
-                document.body.classList.add('no-scroll');
+                document.body.classList.remove('gate-active');
+                document.documentElement.classList.remove('gate-active');
+                document.body.classList.add('recruiter-active', 'no-scroll');
+                document.documentElement.classList.add('recruiter-active', 'no-scroll');
                 switchPanel('about');
             }
         }
@@ -282,12 +285,19 @@ document.addEventListener('DOMContentLoaded', () => {
             if (gateModal) gateModal.classList.add('hidden');
             if (recruiterView) {
                 recruiterView.classList.add('hidden');
-                document.body.classList.remove('no-scroll');
             }
+            document.body.classList.remove('gate-active', 'recruiter-active', 'no-scroll');
+            document.documentElement.classList.remove('gate-active', 'recruiter-active', 'no-scroll');
         }
 
         // Function to switch panels with smooth slide animations
         function switchPanel(targetKey) {
+            if (cursorPreview) {
+                isPreviewActive = false;
+                cursorPreview.classList.remove('visible');
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            }
+
             navLinks.forEach(link => {
                 if (link.getAttribute('data-target') === targetKey) {
                     link.classList.add('active');
@@ -331,13 +341,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Switch to Full 3D Portfolio from Recruiter View
-        if (switchToFullBtn) {
-            switchToFullBtn.addEventListener('click', () => {
-                showFullPortfolio();
-            });
-        }
-
         // Switch to Recruiter View from Navbar
         if (recruiterSwitchBtn) {
             recruiterSwitchBtn.addEventListener('click', () => {
@@ -349,6 +352,76 @@ document.addEventListener('DOMContentLoaded', () => {
         if (recruiterThemeToggle) {
             recruiterThemeToggle.addEventListener('click', toggleTheme);
         }
+
+        // Magnetic Project Image Cursor Preview Logic
+        const cursorPreview = document.getElementById('recruiter-cursor-preview');
+        const previewImg = document.getElementById('recruiter-preview-img');
+        const projCards = document.querySelectorAll('.recruiter-proj-card');
+        
+        let mouseX = 0;
+        let mouseY = 0;
+        let currentX = 0;
+        let currentY = 0;
+        let isPreviewActive = false;
+        let animationFrameId = null;
+
+        function updateMagnetPreview() {
+            if (isPreviewActive && cursorPreview) {
+                // Smooth lerp following mouse
+                currentX += (mouseX - currentX) * 0.18;
+                currentY += (mouseY - currentY) * 0.18;
+
+                // Position offset so preview doesn't block cursor
+                let posX = currentX + 24;
+                let posY = currentY + 24;
+
+                // Boundary check to stay inside viewport
+                const previewWidth = 300;
+                const previewHeight = 185;
+                if (posX + previewWidth > window.innerWidth - 20) {
+                    posX = currentX - previewWidth - 24;
+                }
+                if (posY + previewHeight > window.innerHeight - 20) {
+                    posY = currentY - previewHeight - 24;
+                }
+
+                cursorPreview.style.transform = `translate3d(${posX}px, ${posY}px, 0) scale(1)`;
+                animationFrameId = requestAnimationFrame(updateMagnetPreview);
+            }
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        projCards.forEach(card => {
+            const previewSrc = card.getAttribute('data-preview');
+            if (!previewSrc) return;
+
+            card.addEventListener('mouseenter', (e) => {
+                if (!cursorPreview || !previewImg) return;
+                
+                // Set image source
+                previewImg.src = previewSrc;
+                isPreviewActive = true;
+                
+                // Initialize position on first hover
+                currentX = e.clientX;
+                currentY = e.clientY;
+                cursorPreview.classList.add('visible');
+                
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                animationFrameId = requestAnimationFrame(updateMagnetPreview);
+            });
+
+            card.addEventListener('mouseleave', () => {
+                if (!cursorPreview) return;
+                isPreviewActive = false;
+                cursorPreview.classList.remove('visible');
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            });
+        });
     }
 
     initRecruiterView();

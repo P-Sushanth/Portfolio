@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-scroll">
+<html lang="en" class="gate-active no-scroll">
 
 <head>
     <meta charset="UTF-8">
@@ -30,12 +30,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DotGothic16&family=Fugaz+One&family=Grand+Hotel&family=Sacramento&family=Unica+One&family=Yellowtail&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DotGothic16&family=Fugaz+One&family=Grand+Hotel&family=Inter:wght@300;400;500;600;700&family=Sacramento&family=Unica+One&family=Yellowtail&display=swap"
         rel="stylesheet">
     <!-- Scripts -->
 </head>
 
-<body class="no-scroll">
+<body class="gate-active no-scroll">
     <!-- Scroll Progress Indicator -->
     <div class="scroll-progress-container">
         <div class="scroll-progress-bar" id="scroll-bar"></div>
@@ -68,22 +68,23 @@
 
     <!-- Minimal No-Scroll Recruiter Portfolio View -->
     <div id="recruiter-view" class="recruiter-view-container hidden">
+        <!-- Floating Cursor Magnet Image Preview for Projects -->
+        <div id="recruiter-cursor-preview" class="recruiter-cursor-preview">
+            <img id="recruiter-preview-img" src="" alt="Project Preview">
+        </div>
+
         <header class="recruiter-header">
-            <div class="recruiter-brand">
-                <span class="recruiter-logo">Sushanth</span>
-                <span class="recruiter-tag">Recruiter View</span>
-            </div>
+            <div class="recruiter-header-left"></div>
             <div class="recruiter-actions">
-                <a href="P_Sushanth_Resume.pdf" class="recruiter-action-btn resume-btn" download>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <a href="P_Sushanth_Resume.pdf" class="recruiter-icon-btn" download title="Download Resume" aria-label="Download Resume">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                         <polyline points="7 10 12 15 17 10"></polyline>
                         <line x1="12" y1="15" x2="12" y2="3"></line>
                     </svg>
-                    Resume
                 </a>
-                <button id="recruiter-theme-toggle" class="recruiter-action-btn icon-only" aria-label="Toggle Theme">
-                    <svg id="r-sun-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <button id="recruiter-theme-toggle" class="recruiter-icon-btn theme-btn" aria-label="Toggle Theme" title="Toggle Theme">
+                    <svg class="r-sun-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="5"></circle>
                         <line x1="12" y1="1" x2="12" y2="3"></line>
                         <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -94,22 +95,15 @@
                         <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
-                    <svg id="r-moon-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="r-moon-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                </button>
-                <button id="switch-to-full-btn" class="recruiter-action-btn switch-btn" title="Switch to Full Portfolio">
-                    <span>Explore Full 3D Portfolio</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
                     </svg>
                 </button>
             </div>
         </header>
 
         <main class="recruiter-main">
-            <!-- Left Column: Large Text Navigation -->
+            <!-- Left Column: Large Text Navigation (Times New Roman) -->
             <nav class="recruiter-nav" aria-label="Recruiter sections">
                 <ul class="recruiter-menu">
                     <li class="recruiter-menu-item">
@@ -157,59 +151,53 @@
                 </ul>
             </nav>
 
-            <!-- Right Column: Sliding Panels -->
+            <!-- Right Column: Sliding Panels (Times New Roman for Titles, Inter for Text) -->
             <div class="recruiter-panels-container">
                 <!-- Panel: About -->
                 <section id="panel-about" class="recruiter-panel active">
                     <div class="panel-inner">
                         <div class="panel-header">
-                            <span class="panel-tag">Candidate Profile</span>
-                            <h2 class="panel-title">P Sushanth</h2>
-                            <p class="panel-subtitle">Computer Science Engineer • AI & Quantum Computing Specialist</p>
+                            <h2 class="panel-title">About Me</h2>
                         </div>
                         
                         <div class="panel-body">
                             <p class="panel-bio">
-                                Driven Computer Science student with expertise in AI agents, Quantum computing algorithms, and modern full-stack web architectures. Experienced in engineering production SaaS solutions and publishing peer-reviewed quantum cryptographic security research.
+                                I am a driven Computer Science student with a deep interest in cutting-edge technologies. My goal is to bridge the gap between complex algorithms and practical, real-world applications that deliver impact.
                             </p>
-
-                            <div class="recruiter-stat-row">
-                                <div class="recruiter-stat-card">
-                                    <span class="stat-number">9.22</span>
-                                    <span class="stat-label">B.Tech CGPA (Scholarship)</span>
-                                </div>
-                                <div class="recruiter-stat-card">
-                                    <span class="stat-number">10+</span>
-                                    <span class="stat-label">Projects Built</span>
-                                </div>
-                                <div class="recruiter-stat-card">
-                                    <span class="stat-number">1</span>
-                                    <span class="stat-label">Published Research Paper</span>
-                                </div>
-                            </div>
 
                             <div class="recruiter-info-grid">
                                 <div class="info-cell">
                                     <span class="cell-label">Location</span>
-                                    <span class="cell-value">Visakhapatnam, India</span>
-                                </div>
-                                <div class="info-cell">
-                                    <span class="cell-label">Degree</span>
-                                    <span class="cell-value">B.Tech CSE, GITAM University</span>
+                                    <span class="cell-value">Visakhapatnam</span>
                                 </div>
                                 <div class="info-cell">
                                     <span class="cell-label">Email</span>
                                     <span class="cell-value"><a href="mailto:popurisushanth@gmail.com">popurisushanth@gmail.com</a></span>
                                 </div>
                                 <div class="info-cell">
+                                    <span class="cell-label">Education</span>
+                                    <span class="cell-value">B.Tech CSE, GITAM University</span>
+                                </div>
+                                <div class="info-cell">
                                     <span class="cell-label">Availability</span>
-                                    <span class="cell-value highlight-avail">Open for SWE Internships & Roles</span>
+                                    <span class="cell-value">Open for SWE Internships & Roles</span>
+                                </div>
+                            </div>
+
+                            <div class="recruiter-stat-row">
+                                <div class="recruiter-stat-card">
+                                    <span class="stat-number">9.22</span>
+                                    <span class="stat-label">CGPA in B.Tech</span>
+                                </div>
+                                <div class="recruiter-stat-card">
+                                    <span class="stat-number">10+</span>
+                                    <span class="stat-label">Major Projects</span>
                                 </div>
                             </div>
 
                             <div class="panel-actions">
-                                <a href="P_Sushanth_Resume.pdf" class="btn primary" download>Download Full Resume</a>
-                                <a href="mailto:popurisushanth@gmail.com" class="btn secondary">Email Directly</a>
+                                <a href="P_Sushanth_Resume.pdf" class="btn primary" download>Download Resume</a>
+                                <a href="mailto:popurisushanth@gmail.com" class="btn secondary">Get In Touch</a>
                                 <a href="https://www.linkedin.com/in/p-sushanth-a04587312" target="_blank" rel="noopener noreferrer" class="btn secondary">LinkedIn</a>
                             </div>
                         </div>
@@ -220,43 +208,34 @@
                 <section id="panel-education" class="recruiter-panel">
                     <div class="panel-inner">
                         <div class="panel-header">
-                            <span class="panel-tag">Academic Background</span>
-                            <h2 class="panel-title">Education & Milestones</h2>
+                            <h2 class="panel-title">Education</h2>
                         </div>
                         <div class="panel-body">
                             <div class="recruiter-timeline">
                                 <div class="recruiter-timeline-item">
                                     <div class="recruiter-tl-year">Present</div>
                                     <div class="recruiter-tl-card">
-                                        <h3>B.Tech in Computer Science & Engineering</h3>
+                                        <h3>B.Tech - Computer Science</h3>
                                         <p class="recruiter-tl-inst">GITAM University, Visakhapatnam</p>
-                                        <div class="recruiter-badge-row">
-                                            <span class="badge primary-badge">CGPA: 9.22 / 10</span>
-                                            <span class="badge">Merit Scholarship Recipient</span>
-                                        </div>
-                                        <p class="recruiter-tl-desc">Specializing in Artificial Intelligence, Quantum Information Science, and Scalable Full-Stack Systems.</p>
+                                        <p class="recruiter-tl-desc">CGPA: 9.22 | Received Scholarship</p>
                                     </div>
                                 </div>
 
                                 <div class="recruiter-timeline-item">
                                     <div class="recruiter-tl-year">2022</div>
                                     <div class="recruiter-tl-card">
-                                        <h3>Class XII (Higher Secondary)</h3>
-                                        <p class="recruiter-tl-inst">State Board</p>
-                                        <div class="recruiter-badge-row">
-                                            <span class="badge">Score: 83%</span>
-                                        </div>
+                                        <h3>Class XII</h3>
+                                        <p class="recruiter-tl-inst">State</p>
+                                        <p class="recruiter-tl-desc">Score: 83%</p>
                                     </div>
                                 </div>
 
                                 <div class="recruiter-timeline-item">
                                     <div class="recruiter-tl-year">2020</div>
                                     <div class="recruiter-tl-card">
-                                        <h3>Class X (Secondary School)</h3>
-                                        <p class="recruiter-tl-inst">CBSE Board</p>
-                                        <div class="recruiter-badge-row">
-                                            <span class="badge">Score: 75%</span>
-                                        </div>
+                                        <h3>Class X</h3>
+                                        <p class="recruiter-tl-inst">CBSE</p>
+                                        <p class="recruiter-tl-desc">Score: 75%</p>
                                     </div>
                                 </div>
                             </div>
@@ -264,77 +243,154 @@
                     </div>
                 </section>
 
-                <!-- Panel: Projects -->
+                <!-- Panel: Projects (With Magnet Cursor Photo Preview) -->
                 <section id="panel-projects" class="recruiter-panel">
                     <div class="panel-inner">
                         <div class="panel-header">
-                            <span class="panel-tag">Featured Work</span>
-                            <h2 class="panel-title">Selected Projects</h2>
+                            <h2 class="panel-title">Featured Projects</h2>
                         </div>
                         <div class="panel-body">
                             <div class="recruiter-project-list">
-                                <div class="recruiter-proj-card">
+                                <div class="recruiter-proj-card" data-preview="public/portlio.png">
                                     <div class="proj-card-top">
                                         <h3>Portlio</h3>
                                         <div class="proj-links">
                                             <a href="https://theportlio.com" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
                                         </div>
                                     </div>
-                                    <p class="proj-summary">A SaaS platform that empowers developers, students, and creators to design, customize, and deploy high-performance portfolios in minutes.</p>
+                                    <p class="proj-summary">A SaaS platform that helps developers, students, and professionals create and deploy modern portfolio websites in minutes.</p>
                                     <div class="proj-tags">
                                         <span>SaaS</span><span>React</span><span>Next.js</span><span>Vercel</span>
                                     </div>
                                 </div>
 
-                                <div class="recruiter-proj-card">
+                                <div class="recruiter-proj-card" data-preview="public/AI_Revenue_Recovery.png">
                                     <div class="proj-card-top">
                                         <h3>AI Revenue Recovery Engine</h3>
                                         <div class="proj-links">
                                             <a href="https://github.com/P-Sushanth/AI_Revenue_Recovery" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
                                         </div>
                                     </div>
-                                    <p class="proj-summary">Autonomous subscription payment failure recovery platform powered by local LLMs (Qwen 9B) and deterministic policy guardrails to diagnose bank errors and recover revenue.</p>
+                                    <p class="proj-summary">An autonomous subscription payment failure recovery platform powered by local LLMs (Qwen 9B) and deterministic policy guardrails to diagnose raw bank errors and recover recurring revenue.</p>
                                     <div class="proj-tags">
-                                        <span>AI / LLM</span><span>Ollama</span><span>Next.js</span><span>SaaS</span>
+                                        <span>AI / LLM</span><span>SaaS</span><span>Ollama</span><span>Next.js</span>
                                     </div>
                                 </div>
 
-                                <div class="recruiter-proj-card">
+                                <div class="recruiter-proj-card" data-preview="public/Quantum_Fraud_Detection.PNG">
                                     <div class="proj-card-top">
                                         <h3>Quantum Fraud Detection</h3>
                                         <div class="proj-links">
                                             <a href="https://huggingface.co/spaces/Sushanth-27/quantum-fraud-detection" target="_blank" rel="noopener noreferrer">HuggingFace ↗</a>
                                         </div>
                                     </div>
-                                    <p class="proj-summary">Leveraging quantum computing algorithms and quantum kernel methods to detect complex financial fraud patterns with high accuracy.</p>
+                                    <p class="proj-summary">Leveraging quantum computing algorithms to detect sophisticated patterns of financial fraud with high precision.</p>
                                     <div class="proj-tags">
-                                        <span>Quantum Computing</span><span>Qiskit</span><span>Machine Learning</span>
+                                        <span>Quantum</span><span>Finance</span><span>Security</span>
                                     </div>
                                 </div>
 
-                                <div class="recruiter-proj-card">
-                                    <div class="proj-card-top">
-                                        <h3>AI Legislative Analyser</h3>
-                                        <div class="proj-links">
-                                            <a href="https://huggingface.co/spaces/Sushanth-27/The_AI_Legislative_Analyzer" target="_blank" rel="noopener noreferrer">HuggingFace ↗</a>
-                                        </div>
-                                    </div>
-                                    <p class="proj-summary">Advanced LLM tool to parse, synthesize, and extract actionable insights from dense legislative documents for enhanced legal transparency.</p>
-                                    <div class="proj-tags">
-                                        <span>AI</span><span>LLM</span><span>LegalTech</span>
-                                    </div>
-                                </div>
-
-                                <div class="recruiter-proj-card">
+                                <div class="recruiter-proj-card" data-preview="public/GeoPopulation_Explorer.PNG">
                                     <div class="proj-card-top">
                                         <h3>GeoPopulation Explorer</h3>
                                         <div class="proj-links">
                                             <a href="https://population-pyramid-34p9z13j6-sushanths-projects-e33b8b82.vercel.app/" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
                                         </div>
                                     </div>
-                                    <p class="proj-summary">Data-driven interactive visualization platform analyzing global population dynamics and demographic shifts with high visual fidelity.</p>
+                                    <p class="proj-summary">A dynamic, data-driven visualization platform for exploring global population trends and demographic shifts.</p>
                                     <div class="proj-tags">
-                                        <span>React</span><span>Data Visualization</span><span>D3.js</span>
+                                        <span>React</span><span>DataViz</span><span>D3.js</span>
+                                    </div>
+                                </div>
+
+                                <div class="recruiter-proj-card" data-preview="public/AI_Legislative_Analyser.PNG">
+                                    <div class="proj-card-top">
+                                        <h3>AI Legislative Analyser</h3>
+                                        <div class="proj-links">
+                                            <a href="https://huggingface.co/spaces/Sushanth-27/The_AI_Legislative_Analyzer" target="_blank" rel="noopener noreferrer">HuggingFace ↗</a>
+                                        </div>
+                                    </div>
+                                    <p class="proj-summary">An advanced tool using LLMs to parse, summarize, and analyze complex legislative documents for better transparency.</p>
+                                    <div class="proj-tags">
+                                        <span>AI</span><span>LLM</span><span>LegalTech</span>
+                                    </div>
+                                </div>
+
+                                <div class="recruiter-proj-card" data-preview="public/GENZ_Projects.PNG">
+                                    <div class="proj-card-top">
+                                        <h3>GENZ PROJECTS</h3>
+                                        <div class="proj-links">
+                                            <a href="https://p-sushanth.github.io/GENZ-Projects/" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
+                                        </div>
+                                    </div>
+                                    <p class="proj-summary">A curated collection of modern web experiments and avant-garde UI/UX designs.</p>
+                                    <div class="proj-tags">
+                                        <span>Design</span><span>Portfolio</span>
+                                    </div>
+                                </div>
+
+                                <div class="recruiter-proj-card" data-preview="public/cognitive_load_monitor.PNG">
+                                    <div class="proj-card-top">
+                                        <h3>Cognitive Load Monitor</h3>
+                                        <div class="proj-links">
+                                            <a href="https://cognitive-load-monitor.onrender.com" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
+                                        </div>
+                                    </div>
+                                    <p class="proj-summary">A sophisticated tool designed to monitor and analyze cognitive load during complex tasks.</p>
+                                    <div class="proj-tags">
+                                        <span>React</span><span>Analysis</span>
+                                    </div>
+                                </div>
+
+                                <div class="recruiter-proj-card" data-preview="public/multi_functional_calculator.PNG">
+                                    <div class="proj-card-top">
+                                        <h3>Multi-Functional Calculator</h3>
+                                        <div class="proj-links">
+                                            <a href="https://p-sushanth.github.io/Multi-Functional-Calculator/" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
+                                        </div>
+                                    </div>
+                                    <p class="proj-summary">A comprehensive calculation suite featuring advanced mathematical and specialized functions.</p>
+                                    <div class="proj-tags">
+                                        <span>Web App</span><span>Logic</span>
+                                    </div>
+                                </div>
+
+                                <div class="recruiter-proj-card" data-preview="public/password.PNG">
+                                    <div class="proj-card-top">
+                                        <h3>Password Strength Visualizer</h3>
+                                        <div class="proj-links">
+                                            <a href="https://p-sushanth.github.io/Password-Strength-Visualizer/" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
+                                        </div>
+                                    </div>
+                                    <p class="proj-summary">An interactive tool to visualize and analyze the security level of passwords in real-time.</p>
+                                    <div class="proj-tags">
+                                        <span>JavaScript</span><span>Security</span>
+                                    </div>
+                                </div>
+
+                                <div class="recruiter-proj-card" data-preview="public/typing_test.PNG">
+                                    <div class="proj-card-top">
+                                        <h3>Typing Test</h3>
+                                        <div class="proj-links">
+                                            <a href="https://p-sushanth.github.io/Typing-Test/" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
+                                        </div>
+                                    </div>
+                                    <p class="proj-summary">A sleek, minimalist typing speed and accuracy testing application.</p>
+                                    <div class="proj-tags">
+                                        <span>Performance</span><span>UI</span>
+                                    </div>
+                                </div>
+
+                                <div class="recruiter-proj-card" data-preview="public/custom_chrome_extension.png">
+                                    <div class="proj-card-top">
+                                        <h3>Pure Black Chrome Theme</h3>
+                                        <div class="proj-links">
+                                            <a href="https://github.com/P-Sushanth/custom_chrome_theme" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+                                        </div>
+                                    </div>
+                                    <p class="proj-summary">A minimalist, high-contrast, pure black Google Chrome theme designed for OLED displays.</p>
+                                    <div class="proj-tags">
+                                        <span>Chrome Extension</span><span>Theme</span>
                                     </div>
                                 </div>
                             </div>
@@ -346,8 +402,7 @@
                 <section id="panel-skills" class="recruiter-panel">
                     <div class="panel-inner">
                         <div class="panel-header">
-                            <span class="panel-tag">Technical Competencies</span>
-                            <h2 class="panel-title">Skills & Technologies</h2>
+                            <h2 class="panel-title">Skills</h2>
                         </div>
                         <div class="panel-body">
                             <div class="recruiter-skills-grid">
@@ -355,37 +410,32 @@
                                     <h3 class="skill-box-title">Languages</h3>
                                     <div class="skill-pills">
                                         <span>Python</span>
-                                        <span>JavaScript (ES6+)</span>
-                                        <span>Java</span>
-                                        <span>Flutter / Dart</span>
+                                        <span>JavaScript</span>
+                                        <span>Java / Flutter</span>
+                                        <span>HTML/CSS</span>
                                         <span>C</span>
                                         <span>SQL</span>
-                                        <span>HTML5 & CSS3</span>
                                     </div>
                                 </div>
 
                                 <div class="skill-box">
-                                    <h3 class="skill-box-title">Frameworks & AI/ML</h3>
+                                    <h3 class="skill-box-title">Frameworks & Tech</h3>
                                     <div class="skill-pills">
-                                        <span>React.js</span>
-                                        <span>Next.js</span>
+                                        <span>React.js / Next.js</span>
                                         <span>Node.js</span>
-                                        <span>TensorFlow / PyTorch</span>
-                                        <span>LLM Fine-tuning & Prompting</span>
+                                        <span>AI / ML / TensorFlow</span>
                                         <span>Quantum Computing / Qiskit</span>
                                     </div>
                                 </div>
 
                                 <div class="skill-box">
-                                    <h3 class="skill-box-title">Tools & Databases</h3>
+                                    <h3 class="skill-box-title">Tools</h3>
                                     <div class="skill-pills">
-                                        <span>Git & GitHub</span>
+                                        <span>VS Code / Android Studio</span>
+                                        <span>Git / GitHub</span>
+                                        <span>Figma</span>
                                         <span>MongoDB</span>
                                         <span>Postman</span>
-                                        <span>VS Code</span>
-                                        <span>Android Studio</span>
-                                        <span>Figma</span>
-                                        <span>Vercel</span>
                                     </div>
                                 </div>
                             </div>
@@ -397,48 +447,79 @@
                 <section id="panel-certifications" class="recruiter-panel">
                     <div class="panel-inner">
                         <div class="panel-header">
-                            <span class="panel-tag">Verified Credentials</span>
-                            <h2 class="panel-title">Certifications</h2>
+                            <h2 class="panel-title">Professional Certifications</h2>
                         </div>
                         <div class="panel-body">
                             <div class="recruiter-cert-list">
                                 <div class="recruiter-cert-item">
-                                    <div class="cert-item-icon">🏅</div>
+                                    <div class="cert-item-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                        </svg>
+                                    </div>
                                     <div class="cert-item-details">
                                         <h3>Meta Front-End Developer</h3>
                                         <p>Meta • Professional Certificate</p>
                                     </div>
                                 </div>
                                 <div class="recruiter-cert-item">
-                                    <div class="cert-item-icon">🏅</div>
+                                    <div class="cert-item-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                        </svg>
+                                    </div>
                                     <div class="cert-item-details">
                                         <h3>Meta Back-End Developer</h3>
                                         <p>Meta • Professional Certificate</p>
                                     </div>
                                 </div>
                                 <div class="recruiter-cert-item">
-                                    <div class="cert-item-icon">🤖</div>
+                                    <div class="cert-item-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <path d="M12 16v-4"></path>
+                                            <path d="M12 8h.01"></path>
+                                        </svg>
+                                    </div>
                                     <div class="cert-item-details">
                                         <h3>Google AI Essentials</h3>
                                         <p>Google • Specialization</p>
                                     </div>
                                 </div>
                                 <div class="recruiter-cert-item">
-                                    <div class="cert-item-icon">✨</div>
+                                    <div class="cert-item-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <path d="M12 16v-4"></path>
+                                            <path d="M12 8h.01"></path>
+                                        </svg>
+                                    </div>
                                     <div class="cert-item-details">
                                         <h3>Google Prompting Essentials</h3>
                                         <p>Google • Specialization</p>
                                     </div>
                                 </div>
                                 <div class="recruiter-cert-item">
-                                    <div class="cert-item-icon">⚡</div>
+                                    <div class="cert-item-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <path d="M12 16v-4"></path>
+                                            <path d="M12 8h.01"></path>
+                                        </svg>
+                                    </div>
                                     <div class="cert-item-details">
                                         <h3>Anthropic MCP Advanced</h3>
                                         <p>Anthropic • Professional Certificate</p>
                                     </div>
                                 </div>
                                 <div class="recruiter-cert-item">
-                                    <div class="cert-item-icon">🧠</div>
+                                    <div class="cert-item-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <path d="M12 16v-4"></path>
+                                            <path d="M12 8h.01"></path>
+                                        </svg>
+                                    </div>
                                     <div class="cert-item-details">
                                         <h3>Introduction to Agent Skills</h3>
                                         <p>Anthropic • Professional Certificate</p>
@@ -453,7 +534,6 @@
                 <section id="panel-publications" class="recruiter-panel">
                     <div class="panel-inner">
                         <div class="panel-header">
-                            <span class="panel-tag">Peer-Reviewed Research</span>
                             <h2 class="panel-title">Selected Publications</h2>
                         </div>
                         <div class="panel-body">
@@ -468,7 +548,7 @@
                                 </div>
                                 <div class="pub-action-row">
                                     <a href="./Impact of Quantum Computing on RSA Cryptographic Security-Camera Ready.pdf" target="_blank" class="btn primary small">
-                                        Read Camera Ready PDF ↗
+                                        Read Paper ↗
                                     </a>
                                 </div>
                             </div>
@@ -480,30 +560,43 @@
                 <section id="panel-contact" class="recruiter-panel">
                     <div class="panel-inner">
                         <div class="panel-header">
-                            <span class="panel-tag">Let's Connect</span>
-                            <h2 class="panel-title">Direct Contact</h2>
+                            <h2 class="panel-title">Get In Touch</h2>
                         </div>
                         <div class="panel-body">
                             <div class="recruiter-contact-cards">
                                 <a href="mailto:popurisushanth@gmail.com" class="contact-card">
-                                    <span class="contact-card-icon">✉️</span>
+                                    <span class="contact-card-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                            <polyline points="22,6 12,13 2,6"></polyline>
+                                        </svg>
+                                    </span>
                                     <div class="contact-card-info">
                                         <span class="card-label">Email</span>
                                         <span class="card-val">popurisushanth@gmail.com</span>
                                     </div>
                                 </a>
                                 <a href="tel:+919878323932" class="contact-card">
-                                    <span class="contact-card-icon">📞</span>
+                                    <span class="contact-card-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                        </svg>
+                                    </span>
                                     <div class="contact-card-info">
                                         <span class="card-label">Phone</span>
                                         <span class="card-val">+91 9878323932</span>
                                     </div>
                                 </a>
                                 <div class="contact-card">
-                                    <span class="contact-card-icon">📍</span>
+                                    <span class="contact-card-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                            <circle cx="12" cy="10" r="3"></circle>
+                                        </svg>
+                                    </span>
                                     <div class="contact-card-info">
                                         <span class="card-label">Location</span>
-                                        <span class="card-val">Visakhapatnam, Andhra Pradesh, India</span>
+                                        <span class="card-val">Visakhapatnam, India</span>
                                     </div>
                                 </div>
                             </div>
