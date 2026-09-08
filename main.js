@@ -214,8 +214,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Theme Toggle with Ripple Effect
     const themeToggle = document.getElementById('theme-toggle');
     const toggleTheme = (e) => {
-        const x = e.clientX || window.innerWidth / 2;
-        const y = e.clientY || window.innerHeight / 2;
+        const x = e ? (e.clientX || window.innerWidth / 2) : window.innerWidth / 2;
+        const y = e ? (e.clientY || window.innerHeight / 2) : window.innerHeight / 2;
 
         document.documentElement.style.setProperty('--ripple-x', x + 'px');
         document.documentElement.style.setProperty('--ripple-y', y + 'px');
@@ -247,6 +247,111 @@ document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('theme') === 'light') {
         document.documentElement.classList.add('light-theme');
     }
+
+    // ==========================================
+    // Recruiter Gatekeeper & Minimal View Logic
+    // ==========================================
+    function initRecruiterView() {
+        const gateModal = document.getElementById('recruiter-gate-modal');
+        const gateYes = document.getElementById('gate-choice-yes');
+        const gateNo = document.getElementById('gate-choice-no');
+        const recruiterView = document.getElementById('recruiter-view');
+        const switchToFullBtn = document.getElementById('switch-to-full-btn');
+        const recruiterSwitchBtn = document.getElementById('recruiter-switch-btn');
+        const recruiterThemeToggle = document.getElementById('recruiter-theme-toggle');
+        const navLinks = document.querySelectorAll('.recruiter-nav-link');
+        const panels = document.querySelectorAll('.recruiter-panel');
+        const loader = document.getElementById('loader');
+
+        // Function to activate Recruiter View
+        function showRecruiterView() {
+            if (gateModal) gateModal.classList.add('hidden');
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 300);
+            }
+            if (recruiterView) {
+                recruiterView.classList.remove('hidden');
+                document.body.classList.add('no-scroll');
+                switchPanel('about');
+            }
+        }
+
+        // Function to activate Full Standard Portfolio
+        function showFullPortfolio() {
+            if (gateModal) gateModal.classList.add('hidden');
+            if (recruiterView) {
+                recruiterView.classList.add('hidden');
+                document.body.classList.remove('no-scroll');
+            }
+        }
+
+        // Function to switch panels with smooth slide animations
+        function switchPanel(targetKey) {
+            navLinks.forEach(link => {
+                if (link.getAttribute('data-target') === targetKey) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            const targetPanel = document.getElementById(`panel-${targetKey}`);
+            if (!targetPanel) return;
+
+            panels.forEach(panel => {
+                if (panel === targetPanel) {
+                    panel.scrollTop = 0;
+                    panel.classList.add('active');
+                } else {
+                    panel.classList.remove('active');
+                }
+            });
+        }
+
+        // Recruiter menu item click events
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = link.getAttribute('data-target');
+                switchPanel(target);
+            });
+        });
+
+        // Gatekeeper choices
+        if (gateYes) {
+            gateYes.addEventListener('click', () => {
+                showRecruiterView();
+            });
+        }
+
+        if (gateNo) {
+            gateNo.addEventListener('click', () => {
+                showFullPortfolio();
+            });
+        }
+
+        // Switch to Full 3D Portfolio from Recruiter View
+        if (switchToFullBtn) {
+            switchToFullBtn.addEventListener('click', () => {
+                showFullPortfolio();
+            });
+        }
+
+        // Switch to Recruiter View from Navbar
+        if (recruiterSwitchBtn) {
+            recruiterSwitchBtn.addEventListener('click', () => {
+                showRecruiterView();
+            });
+        }
+
+        // Theme toggle inside Recruiter View
+        if (recruiterThemeToggle) {
+            recruiterThemeToggle.addEventListener('click', toggleTheme);
+        }
+    }
+
+    initRecruiterView();
 
     // Contact Form Handling (Functional via Formspree)
     const contactForm = document.getElementById('contact-form');

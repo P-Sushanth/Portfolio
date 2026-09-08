@@ -1739,4 +1739,889 @@ body.three-d-active footer {
 /* Hide the rocket cursor completely when 3D mode is active */
 body.three-d-active #rocket-cursor-container {
     display: none !important;
-}
+}
+
+/* ==========================================================================
+   Recruiter Gatekeeper Modal & Minimal No-Scroll Portfolio
+   ========================================================================== */
+
+/* 1. Gatekeeper Question Overlay (Pure Black, Minimalist, No Card) */
+.recruiter-gate-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000000;
+    z-index: 10005;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 1;
+    visibility: visible;
+    overflow: hidden;
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s ease;
+}
+
+.recruiter-gate-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.recruiter-gate-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 3.5rem;
+    animation: gateFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes gateFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.recruiter-gate-question {
+    font-family: 'Unica One', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    color: #ffffff;
+    letter-spacing: 0.05em;
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.1;
+    user-select: none;
+}
+
+.recruiter-gate-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(3rem, 7vw, 6rem);
+}
+
+.gate-minimal-btn {
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.gate-minimal-btn .btn-text {
+    font-family: 'Unica One', sans-serif;
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    letter-spacing: 0.1em;
+    color: #777777;
+    transition: color 0.35s ease;
+    user-select: none;
+}
+
+.gate-minimal-btn .btn-underline {
+    display: block;
+    height: 2.5px;
+    width: 0%;
+    background: #ffffff;
+    margin-top: 6px;
+    border-radius: 2px;
+    transition: width 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.gate-minimal-btn:hover .btn-text {
+    color: #ffffff;
+}
+
+.gate-minimal-btn:hover .btn-underline {
+    width: 100%;
+}
+
+.gate-minimal-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* 2. Minimal No-Scroll Recruiter Portfolio Container */
+.recruiter-view-container {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: var(--background);
+    color: var(--text);
+    z-index: 9995;
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.recruiter-view-container.hidden {
+    display: none !important;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Recruiter Header */
+.recruiter-header {
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 clamp(1.5rem, 4vw, 3.5rem);
+    border-bottom: 1px solid var(--glass-border);
+    background: var(--surface);
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+.recruiter-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.recruiter-logo {
+    font-family: 'Unica One', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.05em;
+    color: var(--text);
+}
+
+.recruiter-tag {
+    font-family: 'Unica One', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    background: var(--surface-light);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    color: var(--text-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.recruiter-tag::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #10b981; /* active green dot */
+    display: inline-block;
+}
+
+.recruiter-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.recruiter-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-family: 'Unica One', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    color: var(--text);
+    background: var(--surface-light);
+    border: 1px solid var(--glass-border);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.recruiter-action-btn:hover {
+    border-color: var(--text);
+    background: var(--text);
+    color: var(--background);
+}
+
+.recruiter-action-btn.icon-only {
+    padding: 0.5rem 0.65rem;
+}
+
+.recruiter-action-btn.switch-btn {
+    background: transparent;
+    border: 1px solid var(--text);
+}
+
+.recruiter-action-btn.switch-btn:hover {
+    background: var(--text);
+    color: var(--background);
+}
+
+/* Recruiter Main 2-Column Layout */
+.recruiter-main {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    height: calc(100vh - 75px);
+    overflow: hidden;
+}
+
+/* Left Navigation Column */
+.recruiter-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2.5rem clamp(2rem, 3.5vw, 3.5rem);
+    border-right: 1px solid var(--glass-border);
+    background: var(--background);
+    overflow-y: auto;
+}
+
+.recruiter-menu {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+    padding: 0;
+    margin: 0;
+}
+
+.recruiter-menu-item {
+    display: block;
+}
+
+/* Large Text Menu Item with Underline Animation */
+.recruiter-nav-link {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.2rem 0;
+    position: relative;
+    text-align: left;
+    color: var(--text-muted);
+    transition: color 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.recruiter-nav-link .nav-text {
+    font-family: 'Unica One', sans-serif;
+    font-size: clamp(2.2rem, 3.2vw, 3.1rem);
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    text-transform: capitalize;
+    display: inline-block;
+}
+
+/* The Animated Underline */
+.recruiter-nav-link .nav-line {
+    display: block;
+    height: 2.5px;
+    width: 0%;
+    background: var(--text);
+    margin-top: 4px;
+    border-radius: 2px;
+    transition: width 0.45s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s ease;
+}
+
+/* Hover: Line slowly appears beneath the text */
+.recruiter-nav-link:hover {
+    color: var(--text);
+    transform: translateX(10px);
+}
+
+.recruiter-nav-link:hover .nav-line {
+    width: 100%;
+}
+
+/* Active State: Line stays fully expanded */
+.recruiter-nav-link.active {
+    color: var(--text);
+    transform: translateX(14px);
+}
+
+.recruiter-nav-link.active .nav-line {
+    width: 100%;
+    background: var(--text);
+    box-shadow: 0 0 10px rgba(var(--primary-rgb), 0.35);
+}
+
+/* Right Column: Sliding Panels Container */
+.recruiter-panels-container {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    background: var(--surface);
+}
+
+/* Sliding Panel */
+.recruiter-panel {
+    position: absolute;
+    inset: 0;
+    padding: clamp(2rem, 4vw, 3.5rem) clamp(2rem, 4.5vw, 4rem);
+    overflow-y: auto;
+    overflow-x: hidden;
+    opacity: 0;
+    transform: translateX(80px);
+    pointer-events: none;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.recruiter-panel.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+/* Custom Scrollbar for Panel */
+.recruiter-panel::-webkit-scrollbar {
+    width: 6px;
+}
+
+.recruiter-panel::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.recruiter-panel::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
+    border-radius: 3px;
+}
+
+.recruiter-panel::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+.panel-inner {
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.panel-header {
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 1.5rem;
+}
+
+.panel-tag {
+    font-family: 'Unica One', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+.panel-title {
+    font-family: 'Unica One', sans-serif;
+    font-size: clamp(2.2rem, 3.5vw, 3rem);
+    color: var(--text);
+    line-height: 1.1;
+    margin: 0;
+}
+
+.panel-subtitle {
+    font-family: 'Crimson Text', serif;
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+}
+
+.panel-bio {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--text);
+}
+
+/* Panel Stats Row */
+.recruiter-stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+}
+
+.recruiter-stat-card {
+    background: var(--surface-light);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.recruiter-stat-card .stat-number {
+    font-family: 'Unica One', sans-serif;
+    font-size: 2.2rem;
+    color: var(--text);
+    line-height: 1;
+}
+
+.recruiter-stat-card .stat-label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* Panel Info Grid */
+.recruiter-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+}
+
+.info-cell {
+    background: var(--surface-light);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.info-cell .cell-label {
+    font-family: 'Unica One', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.info-cell .cell-value {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.info-cell .cell-value a {
+    color: var(--text);
+    text-decoration: underline;
+}
+
+.info-cell .cell-value.highlight-avail {
+    color: #10b981;
+    font-weight: 600;
+}
+
+.panel-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
+
+/* Recruiter Timeline */
+.recruiter-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    border-left: 2px solid var(--glass-border);
+    padding-left: 2rem;
+    margin-left: 0.5rem;
+}
+
+.recruiter-timeline-item {
+    position: relative;
+}
+
+.recruiter-timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2.35rem;
+    top: 0.6rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--text);
+    border: 2px solid var(--surface);
+}
+
+.recruiter-tl-year {
+    font-family: 'Unica One', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    margin-bottom: 0.35rem;
+}
+
+.recruiter-tl-card {
+    background: var(--surface-light);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 1.35rem;
+}
+
+.recruiter-tl-card h3 {
+    font-size: 1.35rem;
+    margin-bottom: 0.25rem;
+    color: var(--text);
+}
+
+.recruiter-tl-inst {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+}
+
+.recruiter-badge-row {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+}
+
+.badge {
+    font-family: 'Unica One', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.7rem;
+    border-radius: 4px;
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    color: var(--text);
+}
+
+.badge.primary-badge {
+    border-color: var(--text);
+    font-weight: 600;
+}
+
+.recruiter-tl-desc {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+}
+
+/* Recruiter Project List */
+.recruiter-project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.recruiter-proj-card {
+    background: var(--surface-light);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.recruiter-proj-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--text);
+}
+
+.proj-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.proj-card-top h3 {
+    font-size: 1.45rem;
+    color: var(--text);
+}
+
+.proj-links a {
+    font-family: 'Unica One', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.75rem;
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: 4px;
+    color: var(--text);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.proj-links a:hover {
+    background: var(--text);
+    color: var(--background);
+}
+
+.proj-summary {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+    margin-bottom: 0.85rem;
+}
+
+.proj-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.proj-tags span {
+    font-family: 'Unica One', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    padding: 0.15rem 0.6rem;
+    background: var(--surface);
+    border-radius: 3px;
+    color: var(--text-muted);
+    border: 1px solid var(--glass-border);
+}
+
+/* Recruiter Skills Grid */
+.recruiter-skills-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+.skill-box {
+    background: var(--surface-light);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+
+.skill-box-title {
+    font-family: 'Unica One', sans-serif;
+    font-size: 1.25rem;
+    color: var(--text);
+    margin-bottom: 1rem;
+}
+
+.skill-pills {
+    display: flex;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+}
+
+.skill-pills span {
+    font-size: 1rem;
+    padding: 0.45rem 1rem;
+    border-radius: 6px;
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    color: var(--text);
+    transition: all 0.2s ease;
+}
+
+.skill-pills span:hover {
+    border-color: var(--text);
+    transform: translateY(-2px);
+}
+
+/* Recruiter Certifications */
+.recruiter-cert-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+}
+
+.recruiter-cert-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--surface-light);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 1.25rem;
+}
+
+.cert-item-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.cert-item-details h3 {
+    font-size: 1.15rem;
+    color: var(--text);
+    margin-bottom: 0.15rem;
+}
+
+.cert-item-details p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* Recruiter Publication Box */
+.recruiter-pub-box {
+    background: var(--surface-light);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.pub-type-badge {
+    font-family: 'Unica One', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: 3px;
+    width: fit-content;
+    color: var(--text-muted);
+}
+
+.recruiter-pub-box h3 {
+    font-size: 1.6rem;
+    color: var(--text);
+    line-height: 1.2;
+}
+
+.pub-desc {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+}
+
+.pub-details-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    font-size: 0.95rem;
+    color: var(--text);
+    padding: 0.75rem 0;
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.pub-action-row {
+    margin-top: 0.5rem;
+}
+
+/* Recruiter Contact Cards */
+.recruiter-contact-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.contact-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--surface-light);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+.contact-card:hover {
+    border-color: var(--text);
+    transform: translateY(-2px);
+}
+
+.contact-card-icon {
+    font-size: 1.6rem;
+    line-height: 1;
+}
+
+.contact-card-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-card-info .card-label {
+    font-family: 'Unica One', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.contact-card-info .card-val {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.recruiter-social-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.recruiter-social-links a {
+    font-family: 'Unica One', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    padding: 0.6rem 1.25rem;
+    background: var(--surface-light);
+    border: 1px solid var(--glass-border);
+    border-radius: 6px;
+    color: var(--text);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.recruiter-social-links a:hover {
+    background: var(--text);
+    color: var(--background);
+}
+
+/* Responsive Overrides for Recruiter View */
+@media (max-width: 950px) {
+    .recruiter-main {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        height: calc(100vh - 75px);
+    }
+
+    .recruiter-nav {
+        border-right: none;
+        border-bottom: 1px solid var(--glass-border);
+        padding: 1rem 1.5rem;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .recruiter-menu {
+        flex-direction: row;
+        gap: 1.5rem;
+    }
+
+    .recruiter-nav-link .nav-text {
+        font-size: 1.6rem;
+        white-space: nowrap;
+    }
+
+    .recruiter-nav-link:hover,
+    .recruiter-nav-link.active {
+        transform: translateY(-2px);
+    }
+
+    .recruiter-stat-row,
+    .recruiter-cert-list {
+        grid-template-columns: 1fr;
+    }
+
+    .recruiter-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
