@@ -2232,6 +2232,8 @@ body.gate-active #rocket-cursor-container {
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .info-cell .cell-label {
@@ -2243,9 +2245,12 @@ body.gate-active #rocket-cursor-container {
 }
 
 .info-cell .cell-value {
-    font-size: 1rem;
+    font-size: 0.98rem;
     font-weight: 500;
     color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .info-cell .cell-value a {
@@ -2534,7 +2539,7 @@ body.gate-active #rocket-cursor-container {
 /* Recruiter Contact Cards */
 .recruiter-contact-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 1.25rem;
     margin-bottom: 2rem;
 }
@@ -2542,14 +2547,15 @@ body.gate-active #rocket-cursor-container {
 .contact-card {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.15rem;
     background: var(--surface-light);
     border: 1px solid var(--glass-border);
     border-radius: 10px;
-    padding: 1.25rem;
+    padding: 1.25rem 1.4rem;
     text-decoration: none;
     color: inherit;
     transition: all 0.3s ease;
+    min-width: 0;
 }
 
 .contact-card:hover {
@@ -2562,11 +2568,13 @@ body.gate-active #rocket-cursor-container {
     align-items: center;
     justify-content: center;
     color: var(--text);
+    flex-shrink: 0;
 }
 
 .contact-card-info {
     display: flex;
     flex-direction: column;
+    min-width: 0;
 }
 
 .contact-card-info .card-label {
@@ -2578,9 +2586,10 @@ body.gate-active #rocket-cursor-container {
 }
 
 .contact-card-info .card-val {
-    font-size: 1rem;
+    font-size: 0.92rem;
     font-weight: 500;
     color: var(--text);
+    word-break: break-word;
 }
 
 .recruiter-social-links {
