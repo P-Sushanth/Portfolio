@@ -1915,8 +1915,8 @@ body.gate-active #rocket-cursor-container {
     align-items: center;
     justify-content: space-between;
     padding: 0 clamp(1.5rem, 4vw, 3.5rem);
-    border-bottom: 1px solid var(--glass-border);
-    background: var(--surface);
+    border-bottom: none;
+    background: transparent;
     flex-shrink: 0;
     z-index: 10;
 }
@@ -2010,6 +2010,7 @@ body.gate-active #rocket-cursor-container {
     grid-template-columns: 360px 1fr;
     height: calc(100vh - 70px);
     overflow: hidden;
+    background: transparent;
 }
 
 /* Left Navigation Column */
@@ -2018,8 +2019,8 @@ body.gate-active #rocket-cursor-container {
     flex-direction: column;
     justify-content: center;
     padding: 2.5rem clamp(2rem, 3.5vw, 3.5rem);
-    border-right: 1px solid var(--glass-border);
-    background: var(--background);
+    border-right: none;
+    background: transparent;
     overflow-y: auto;
 }
 
@@ -2099,14 +2100,14 @@ body.gate-active #rocket-cursor-container {
     position: relative;
     height: 100%;
     overflow: hidden;
-    background: var(--surface);
+    background: transparent;
 }
 
 /* Sliding Panel */
 .recruiter-panel {
     position: absolute;
     inset: 0;
-    padding: clamp(2rem, 4vw, 3.5rem) clamp(2rem, 4.5vw, 4rem);
+    padding: clamp(1rem, 3vw, 2.5rem) clamp(2rem, 4.5vw, 4rem);
     overflow-y: auto;
     overflow-x: hidden;
     opacity: 0;
@@ -2147,8 +2148,8 @@ body.gate-active #rocket-cursor-container {
 }
 
 .panel-header {
-    border-bottom: 1px solid var(--glass-border);
-    padding-bottom: 1.5rem;
+    border-bottom: none;
+    padding-bottom: 0.5rem;
 }
 
 .panel-title {
