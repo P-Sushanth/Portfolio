@@ -353,6 +353,22 @@ html {
     scroll-behavior: smooth;
 }
 
+html.no-scroll,
+body.no-scroll {
+    overflow: hidden !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+html.no-scroll::-webkit-scrollbar,
+body.no-scroll::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
 body {
     font-family: 'Crimson Text', Georgia, serif;
     background-color: var(--background);
