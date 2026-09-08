@@ -263,8 +263,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const panels = document.querySelectorAll('.recruiter-panel');
         const loader = document.getElementById('loader');
 
+        // Function to activate Gatekeeper
+        function showGatekeeper() {
+            if (gateModal) gateModal.classList.remove('hidden');
+            if (recruiterView) recruiterView.classList.add('hidden');
+            document.body.classList.remove('recruiter-active');
+            document.documentElement.classList.remove('recruiter-active');
+            document.body.classList.add('gate-active', 'no-scroll');
+            document.documentElement.classList.add('gate-active', 'no-scroll');
+            window.scrollTo(0, 0);
+        }
+
         // Function to activate Recruiter View
-        function showRecruiterView() {
+        function showRecruiterView(panelKey = 'about', updateHistory = true) {
+            if (updateHistory) {
+                history.pushState({ view: 'recruiter', panel: panelKey }, '', '#recruiter');
+            }
             if (gateModal) gateModal.classList.add('hidden');
             if (loader) {
                 loader.style.opacity = '0';
@@ -276,12 +290,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.documentElement.classList.remove('gate-active');
                 document.body.classList.add('recruiter-active', 'no-scroll');
                 document.documentElement.classList.add('recruiter-active', 'no-scroll');
-                switchPanel('about');
+                switchPanel(panelKey);
             }
         }
 
         // Function to activate Full Standard Portfolio
-        function showFullPortfolio() {
+        function showFullPortfolio(updateHistory = true) {
+            if (updateHistory) {
+                history.pushState({ view: 'portfolio' }, '', '#portfolio');
+            }
             if (gateModal) gateModal.classList.add('hidden');
             if (recruiterView) {
                 recruiterView.classList.add('hidden');
@@ -331,26 +348,52 @@ document.addEventListener('DOMContentLoaded', () => {
         // Gatekeeper choices
         if (gateYes) {
             gateYes.addEventListener('click', () => {
-                showRecruiterView();
+                showRecruiterView('about', true);
             });
         }
 
         if (gateNo) {
             gateNo.addEventListener('click', () => {
-                showFullPortfolio();
+                showFullPortfolio(true);
             });
         }
 
         // Switch to Recruiter View from Navbar
         if (recruiterSwitchBtn) {
             recruiterSwitchBtn.addEventListener('click', () => {
-                showRecruiterView();
+                showRecruiterView('about', true);
             });
         }
 
         // Theme toggle inside Recruiter View
         if (recruiterThemeToggle) {
             recruiterThemeToggle.addEventListener('click', toggleTheme);
+        }
+
+        // Handle Browser Back / Forward buttons (popstate)
+        window.addEventListener('popstate', (e) => {
+            const hash = window.location.hash;
+            if (hash === '#recruiter' || (e.state && e.state.view === 'recruiter')) {
+                const panel = (e.state && e.state.panel) ? e.state.panel : 'about';
+                showRecruiterView(panel, false);
+            } else if (hash === '#portfolio' || (e.state && e.state.view === 'portfolio')) {
+                showFullPortfolio(false);
+            } else {
+                showGatekeeper();
+            }
+        });
+
+        // Initialize state on first load
+        const initialHash = window.location.hash;
+        if (initialHash === '#recruiter') {
+            history.replaceState({ view: 'recruiter', panel: 'about' }, '', '#recruiter');
+            showRecruiterView('about', false);
+        } else if (initialHash === '#portfolio') {
+            history.replaceState({ view: 'portfolio' }, '', '#portfolio');
+            showFullPortfolio(false);
+        } else {
+            history.replaceState({ view: 'gate' }, '', window.location.pathname + window.location.search);
+            showGatekeeper();
         }
 
         // Magnetic Project Image Cursor Preview Logic
