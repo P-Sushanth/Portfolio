@@ -2656,98 +2656,29 @@ body.gate-active #rocket-cursor-container {
     }
 }
 
-/* GitHub Heatmap Variables & Utilities */
+/* GitHub Heatmap Variables & Utilities - Matching Website Palette */
 :root {
-    --chart-scale-01: #161b22;
-    --chart-scale-02: #0e4429;
-    --chart-scale-03: #006d32;
-    --chart-scale-04: #26a641;
-    --chart-scale-05: #39d353;
-    --border: rgba(255, 255, 255, 0.12);
+    --chart-scale-01: rgba(255, 255, 255, 0.08); /* Empty cell: subtle dark glass tint */
+    --chart-scale-02: rgba(255, 255, 255, 0.28); /* Low activity: muted silver */
+    --chart-scale-03: rgba(255, 255, 255, 0.52); /* Med activity: silver white */
+    --chart-scale-04: rgba(255, 255, 255, 0.78); /* High activity: bright white */
+    --chart-scale-05: #ffffff;                  /* Max activity: pure white */
+    --border: rgba(255, 255, 255, 0.15);
 }
 
 html.light-theme, body.light-theme {
-    --chart-scale-01: #ebedf0;
-    --chart-scale-02: #9be9a8;
-    --chart-scale-03: #40c463;
-    --chart-scale-04: #30a14e;
-    --chart-scale-05: #216e39;
-    --border: rgba(0, 0, 0, 0.12);
+    --chart-scale-01: rgba(0, 0, 0, 0.07);     /* Empty cell: subtle light glass tint */
+    --chart-scale-02: rgba(0, 0, 0, 0.24);     /* Low activity: muted charcoal */
+    --chart-scale-03: rgba(0, 0, 0, 0.48);     /* Med activity: medium charcoal */
+    --chart-scale-04: rgba(0, 0, 0, 0.72);     /* High activity: dark charcoal */
+    --chart-scale-05: #000000;                  /* Max activity: pure black */
+    --border: rgba(0, 0, 0, 0.15);
 }
 
-.github-heatmap-container {
+.github-heatmap-pure-wrapper {
     width: 100%;
-    padding: 1.25rem;
-    border-radius: 12px;
-    background: rgba(0, 0, 0, 0.35);
-    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.12));
-    backdrop-filter: blur(10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    margin: 1rem 0;
     box-sizing: border-box;
-    margin: 1.25rem 0;
-    transition: all 0.3s ease;
-}
-
-html.light-theme .github-heatmap-container {
-    background: rgba(255, 255, 255, 0.65);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-}
-
-.github-heatmap-header-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 0.85rem;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.github-heatmap-title-group {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.github-heatmap-octocat-icon {
-    width: 20px !important;
-    height: 20px !important;
-    min-width: 20px !important;
-    max-width: 20px !important;
-    min-height: 20px !important;
-    max-height: 20px !important;
-    flex-shrink: 0;
-    fill: currentColor;
-    color: #34d399;
-}
-
-.github-heatmap-heading-text {
-    font-weight: 600;
-    font-size: 0.9rem;
-    letter-spacing: 0.02em;
-    color: var(--text, #ffffff);
-}
-
-.github-heatmap-count-badge {
-    font-size: 0.75rem;
-    font-family: monospace;
-    color: #34d399;
-    background: rgba(6, 78, 59, 0.5);
-    border: 1px solid rgba(16, 185, 129, 0.3);
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-}
-
-html.light-theme .github-heatmap-count-badge {
-    color: #047857;
-    background: rgba(209, 250, 229, 0.8);
-    border-color: rgba(16, 185, 129, 0.4);
-}
-
-.github-heatmap-flex-stack {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 0.75rem;
 }
 
 .heatmap-separator-label {
@@ -2758,14 +2689,15 @@ html.light-theme .heatmap-separator-label {
     color: #111827;
 }
 
-#recruiter-github-heatmap .github-heatmap-container {
+#recruiter-github-heatmap {
     margin-top: 1.25rem;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
 }
 
-#standard-github-heatmap .github-heatmap-container {
+#standard-github-heatmap {
     margin-top: 1.5rem;
 }
+
 
 
 
