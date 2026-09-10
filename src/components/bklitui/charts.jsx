@@ -4,7 +4,7 @@ const HeatmapContext = createContext(null);
 
 export function HeatmapInteractionProvider({ children }) {
   const [hoveredCell, setHoveredCell] = useState(null);
-  const [tooltipState, setTooltipState] = useState({ visible: false, content: null, x: 0, y: 0 });
+  const [tooltipState, setTooltipState] = useState({ visible: false, content: null, x: 0, y: 0, isTopRow: false });
   const [activeLevelFilter, setActiveLevelFilter] = useState(null);
 
   const value = useMemo(
@@ -36,7 +36,7 @@ export function useHeatmapContext() {
 
 export function HeatmapInteractionBoundary({ children, className = '' }) {
   return (
-    <div className={`bklit-interaction-boundary ${className}`} style={{ position: 'relative', width: '100%' }}>
+    <div className={`bklit-interaction-boundary ${className}`} style={{ position: 'relative', width: '100%', overflow: 'visible' }}>
       {children}
     </div>
   );
@@ -120,7 +120,7 @@ export function HeatmapChart({
       <div
         ref={chartRef}
         className={`bklit-heatmap-chart ${className}`}
-        style={{ display: 'flex', flexDirection: 'column', width: '100%', overflowX: 'auto', overflowY: 'hidden' }}
+        style={{ display: 'flex', flexDirection: 'column', width: '100%', overflowX: 'auto', overflowY: 'visible' }}
       >
         {children}
       </div>
@@ -147,7 +147,7 @@ export function HeatmapCells({ cornerRadius = 2, cellSize = 11, className = '' }
         width: '100%',
         padding: '6px 0',
         overflowX: 'auto',
-        overflowY: 'hidden',
+        overflowY: 'visible',
         boxSizing: 'border-box',
       }}
     >
@@ -159,7 +159,7 @@ export function HeatmapCells({ cornerRadius = 2, cellSize = 11, className = '' }
           alignItems: 'flex-start',
           gap: `${gap}px`,
           overflowX: 'auto',
-          overflowY: 'hidden',
+          overflowY: 'visible',
           padding: '4px 2px 8px 2px',
           flex: 1,
           boxSizing: 'border-box',
@@ -207,13 +207,14 @@ export function HeatmapCells({ cornerRadius = 2, cellSize = 11, className = '' }
                         visible: true,
                         content: day,
                         x: cellRect.left - boundaryRect.left + cellRect.width / 2,
-                        y: cellRect.top - boundaryRect.top,
+                        y: dayIndex < 2 ? cellRect.bottom - boundaryRect.top : cellRect.top - boundaryRect.top,
+                        isTopRow: dayIndex < 2,
                       });
                     }
                   }}
                   onMouseLeave={() => {
                     setHoveredCell(null);
-                    setTooltipState({ visible: false, content: null, x: 0, y: 0 });
+                    setTooltipState({ visible: false, content: null, x: 0, y: 0, isTopRow: false });
                   }}
                 />
               );
@@ -395,7 +396,7 @@ export function HeatmapTooltip({ className = '' }) {
 
   if (!tooltipState || !tooltipState.visible || !tooltipState.content) return null;
 
-  const { content, x, y } = tooltipState;
+  const { content, x, y, isTopRow } = tooltipState;
   const countText =
     content.count === 0 ? 'No contributions' : `${content.count} contribution${content.count > 1 ? 's' : ''}`;
 
@@ -416,16 +417,16 @@ export function HeatmapTooltip({ className = '' }) {
         position: 'absolute',
         zIndex: 100,
         pointerEvents: 'none',
-        transform: 'translate(-50%, -100%)',
+        transform: isTopRow ? 'translate(-50%, 6px)' : 'translate(-50%, -100%)',
         left: `${x}px`,
-        top: `${y - 6}px`,
+        top: isTopRow ? `${y}px` : `${y - 6}px`,
         padding: '6px 12px',
         backgroundColor: 'var(--surface, rgba(18, 18, 18, 0.94))',
         color: 'var(--text, #ffffff)',
         fontSize: '11px',
         fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
         borderRadius: '6px',
-        boxShadow: '0 10px 25px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--glass-border, rgba(255, 255, 255, 0.15))',
+        boxShadow: '0 10px 25px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--glass-border, rgba(255, 255, 255, 0.15))',
         border: '1px solid var(--glass-border, rgba(255, 255, 255, 0.15))',
         backdropFilter: 'blur(10px)',
         whiteSpace: 'nowrap',
