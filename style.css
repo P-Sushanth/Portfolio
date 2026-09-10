@@ -2698,6 +2698,26 @@ html.light-theme .heatmap-separator-label {
     margin-top: 1.5rem;
 }
 
+/* Hide scrollbars on heatmap components */
+.bklit-heatmap-grid::-webkit-scrollbar,
+.bklit-cells-container::-webkit-scrollbar,
+.bklit-heatmap-chart::-webkit-scrollbar,
+.github-heatmap-pure-wrapper::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+.bklit-heatmap-grid,
+.bklit-cells-container,
+.bklit-heatmap-chart,
+.github-heatmap-pure-wrapper {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-y: hidden !important;
+}
+
+
 
 
 

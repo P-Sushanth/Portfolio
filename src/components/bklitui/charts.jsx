@@ -36,7 +36,7 @@ export function useHeatmapContext() {
 
 export function HeatmapInteractionBoundary({ children, className = '' }) {
   return (
-    <div className={`bklit-interaction-boundary ${className}`} style={{ position: 'relative', width: '100%' }}>
+    <div className={`bklit-interaction-boundary ${className}`} style={{ position: 'relative', width: '100%', overflow: 'hidden' }}>
       {children}
     </div>
   );
@@ -120,7 +120,7 @@ export function HeatmapChart({
       <div
         ref={chartRef}
         className={`bklit-heatmap-chart ${className}`}
-        style={{ display: 'flex', flexDirection: 'column', width: '100%', overflowX: 'auto' }}
+        style={{ display: 'flex', flexDirection: 'column', width: '100%', overflowX: 'auto', overflowY: 'hidden' }}
       >
         {children}
       </div>
@@ -143,9 +143,12 @@ export function HeatmapCells({ cornerRadius = 2, cellSize = 11, className = '' }
         display: 'flex',
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
-        gap: '6px',
+        gap: '8px',
         width: '100%',
-        padding: '2px 0',
+        padding: '6px 0',
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        boxSizing: 'border-box',
       }}
     >
       <HeatmapYAxis />
@@ -156,8 +159,10 @@ export function HeatmapCells({ cornerRadius = 2, cellSize = 11, className = '' }
           alignItems: 'flex-start',
           gap: `${gap}px`,
           overflowX: 'auto',
-          paddingBottom: '4px',
+          overflowY: 'hidden',
+          padding: '4px 2px 8px 2px',
           flex: 1,
+          boxSizing: 'border-box',
         }}
       >
         {columns.map((col, colIndex) => (
@@ -248,9 +253,9 @@ export function HeatmapXAxis({ className = '' }) {
         fontFamily: 'monospace',
         color: 'var(--text-muted, #888888)',
         marginBottom: '4px',
-        paddingLeft: '32px',
+        paddingLeft: '34px',
         position: 'relative',
-        height: '16px',
+        height: '18px',
         overflow: 'hidden',
       }}
     >
@@ -259,7 +264,7 @@ export function HeatmapXAxis({ className = '' }) {
           key={`${m.label}-${m.index}`}
           style={{
             position: 'absolute',
-            left: `calc(2rem + ${(m.index / Math.max(columns.length, 1)) * 90}%)`,
+            left: `calc(2.1rem + ${(m.index / Math.max(columns.length, 1)) * 90}%)`,
             transform: 'translateX(-50%)',
             opacity: 0.8,
           }}
@@ -286,8 +291,10 @@ export function HeatmapYAxis({ className = '' }) {
         color: 'var(--text-muted, #888888)',
         paddingRight: '6px',
         height: '89px',
+        marginTop: '4px',
         flexShrink: 0,
         userSelect: 'none',
+        overflow: 'hidden',
       }}
     >
       {days.map((d, i) => (
@@ -335,6 +342,7 @@ export function HeatmapSeparator({
         width: '100%',
         height: '16px',
         marginTop: '4px',
+        overflow: 'hidden',
       }}
     >
       {separators.map((sep) => (
@@ -343,7 +351,7 @@ export function HeatmapSeparator({
           style={{
             position: 'absolute',
             top: 0,
-            left: `calc(2rem + ${(sep.index / Math.max(columns.length, 1)) * 90}%)`,
+            left: `calc(2.1rem + ${(sep.index / Math.max(columns.length, 1)) * 90}%)`,
             transform: 'translateX(-50%)',
             display: 'flex',
             flexDirection: 'column',
@@ -455,7 +463,7 @@ export function HeatmapLegend({
         fontSize: '11px',
         fontFamily: 'monospace',
         color: 'var(--text-muted, #888888)',
-        marginTop: '12px',
+        marginTop: '10px',
       }}
     >
       <span>Less</span>
@@ -474,7 +482,7 @@ export function HeatmapLegend({
                 height: `${cellSize}px`,
                 backgroundColor: color,
                 borderRadius: `${cornerRadius}px`,
-                border: isSelected ? '2px solid #10b981' : 'none',
+                border: isSelected ? '2px solid var(--text, #ffffff)' : 'none',
                 cursor: 'pointer',
                 transform: isSelected ? 'scale(1.15)' : 'scale(1)',
                 transition: 'transform 0.15s ease',
