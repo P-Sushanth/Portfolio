@@ -384,14 +384,19 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 1;
+    z-index: 0;
     pointer-events: none;
 }
 
 .navbar,
 main,
 footer,
-#loader {
+#loader,
+.recruiter-view-container,
+.recruiter-panel,
+#recruiter-github-heatmap,
+#standard-github-heatmap,
+.github-heatmap-pure-wrapper {
     position: relative;
     z-index: 2;
 }

@@ -36,7 +36,7 @@ export function useHeatmapContext() {
 
 export function HeatmapInteractionBoundary({ children, className = '' }) {
   return (
-    <div className={`bklit-interaction-boundary ${className}`} style={{ position: 'relative', width: '100%', overflow: 'hidden' }}>
+    <div className={`bklit-interaction-boundary ${className}`} style={{ position: 'relative', width: '100%' }}>
       {children}
     </div>
   );
@@ -199,13 +199,17 @@ export function HeatmapCells({ cornerRadius = 2, cellSize = 11, className = '' }
                   }}
                   onMouseEnter={(e) => {
                     setHoveredCell(day);
-                    const rect = e.currentTarget.getBoundingClientRect();
-                    setTooltipState({
-                      visible: true,
-                      content: day,
-                      x: rect.left + rect.width / 2,
-                      y: rect.top - 8,
-                    });
+                    const cellRect = e.currentTarget.getBoundingClientRect();
+                    const boundary = e.currentTarget.closest('.bklit-interaction-boundary');
+                    if (boundary) {
+                      const boundaryRect = boundary.getBoundingClientRect();
+                      setTooltipState({
+                        visible: true,
+                        content: day,
+                        x: cellRect.left - boundaryRect.left + cellRect.width / 2,
+                        y: cellRect.top - boundaryRect.top,
+                      });
+                    }
                   }}
                   onMouseLeave={() => {
                     setHoveredCell(null);
@@ -409,26 +413,27 @@ export function HeatmapTooltip({ className = '' }) {
     <div
       className={`bklit-heatmap-tooltip ${className}`}
       style={{
-        position: 'fixed',
-        zIndex: 10005,
+        position: 'absolute',
+        zIndex: 100,
         pointerEvents: 'none',
         transform: 'translate(-50%, -100%)',
         left: `${x}px`,
         top: `${y - 6}px`,
-        padding: '6px 10px',
-        backgroundColor: 'rgba(15, 23, 42, 0.95)',
-        color: '#ffffff',
+        padding: '6px 12px',
+        backgroundColor: 'var(--surface, rgba(18, 18, 18, 0.94))',
+        color: 'var(--text, #ffffff)',
         fontSize: '11px',
-        fontFamily: 'monospace',
+        fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
         borderRadius: '6px',
-        boxShadow: '0 10px 25px rgba(0, 0, 0, 0.4)',
-        border: '1px solid rgba(255, 255, 255, 0.15)',
-        backdropFilter: 'blur(4px)',
-        transition: 'opacity 0.1s ease',
+        boxShadow: '0 10px 25px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--glass-border, rgba(255, 255, 255, 0.15))',
+        border: '1px solid var(--glass-border, rgba(255, 255, 255, 0.15))',
+        backdropFilter: 'blur(10px)',
+        whiteSpace: 'nowrap',
+        transition: 'opacity 0.15s ease',
       }}
     >
-      <div style={{ fontWeight: 600 }}>{countText}</div>
-      <div style={{ fontSize: '10px', opacity: 0.75 }}>{formattedDate}</div>
+      <div style={{ fontWeight: 600, fontSize: '11px', letterSpacing: '0.01em' }}>{countText}</div>
+      <div style={{ fontSize: '10px', opacity: 0.7, marginTop: '1px' }}>{formattedDate}</div>
     </div>
   );
 }
