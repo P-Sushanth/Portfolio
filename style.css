@@ -2676,30 +2676,97 @@ html.light-theme, body.light-theme {
 }
 
 .github-heatmap-container {
+    width: 100%;
+    padding: 1.25rem;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.12));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     box-sizing: border-box;
+    margin: 1.25rem 0;
     transition: all 0.3s ease;
+}
+
+html.light-theme .github-heatmap-container {
+    background: rgba(255, 255, 255, 0.65);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.github-heatmap-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.85rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.github-heatmap-title-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.github-heatmap-octocat-icon {
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    max-width: 20px !important;
+    min-height: 20px !important;
+    max-height: 20px !important;
+    flex-shrink: 0;
+    fill: currentColor;
+    color: #34d399;
+}
+
+.github-heatmap-heading-text {
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    color: var(--text, #ffffff);
+}
+
+.github-heatmap-count-badge {
+    font-size: 0.75rem;
+    font-family: monospace;
+    color: #34d399;
+    background: rgba(6, 78, 59, 0.5);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+}
+
+html.light-theme .github-heatmap-count-badge {
+    color: #047857;
+    background: rgba(209, 250, 229, 0.8);
+    border-color: rgba(16, 185, 129, 0.4);
+}
+
+.github-heatmap-flex-stack {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+}
+
+.heatmap-separator-label {
+    color: var(--text, #ffffff);
+}
+
+html.light-theme .heatmap-separator-label {
+    color: #111827;
 }
 
 #recruiter-github-heatmap .github-heatmap-container {
     margin-top: 1.25rem;
     margin-bottom: 1.25rem;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--glass-border);
-}
-
-html.light-theme #recruiter-github-heatmap .github-heatmap-container {
-    background: rgba(255, 255, 255, 0.6);
 }
 
 #standard-github-heatmap .github-heatmap-container {
     margin-top: 1.5rem;
-    background: rgba(18, 18, 20, 0.4);
-    border: 1px solid var(--glass-border);
 }
 
-html.light-theme #standard-github-heatmap .github-heatmap-container {
-    background: rgba(245, 245, 247, 0.7);
-}
 
 
 

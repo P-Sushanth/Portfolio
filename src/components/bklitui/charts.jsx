@@ -36,7 +36,7 @@ export function useHeatmapContext() {
 
 export function HeatmapInteractionBoundary({ children, className = '' }) {
   return (
-    <div className={`heatmap-interaction-boundary relative w-full ${className}`}>
+    <div className={`bklit-interaction-boundary ${className}`} style={{ position: 'relative', width: '100%' }}>
       {children}
     </div>
   );
@@ -63,12 +63,13 @@ export function HeatmapChart({
 }) {
   const chartRef = useRef(null);
 
-  // Normalize data into weeks (columns)
+  // Normalize data into weeks (columns of 7 days)
   const columns = useMemo(() => {
     if (!data || data.length === 0) return [];
     if (data[0] && Array.isArray(data[0].bins)) {
       return data;
     }
+
     const cols = [];
     let currentWeek = [];
 
@@ -116,7 +117,11 @@ export function HeatmapChart({
 
   return (
     <ChartDataContext.Provider value={value}>
-      <div ref={chartRef} className={`heatmap-chart-container flex flex-col w-full overflow-x-auto ${className}`}>
+      <div
+        ref={chartRef}
+        className={`bklit-heatmap-chart ${className}`}
+        style={{ display: 'flex', flexDirection: 'column', width: '100%', overflowX: 'auto' }}
+      >
         {children}
       </div>
     </ChartDataContext.Provider>
@@ -132,11 +137,35 @@ export function HeatmapCells({ cornerRadius = 2, cellSize = 11, className = '' }
   const { hoveredCell, setHoveredCell, setTooltipState, activeLevelFilter } = useHeatmapContext();
 
   return (
-    <div className="heatmap-cells-wrapper flex items-start justify-center gap-1 w-full py-1">
+    <div
+      className={`bklit-cells-container ${className}`}
+      style={{
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+        gap: '6px',
+        width: '100%',
+        padding: '2px 0',
+      }}
+    >
       <HeatmapYAxis />
-      <div className="heatmap-grid flex items-start gap-[var(--heatmap-gap,2px)] overflow-x-auto pb-1" style={{ '--heatmap-gap': `${gap}px` }}>
+      <div
+        className="bklit-heatmap-grid"
+        style={{
+          display: 'flex',
+          alignItems: 'flex-start',
+          gap: `${gap}px`,
+          overflowX: 'auto',
+          paddingBottom: '4px',
+          flex: 1,
+        }}
+      >
         {columns.map((col, colIndex) => (
-          <div key={col.bin ?? colIndex} className="heatmap-column flex flex-col gap-[var(--heatmap-gap,2px)]">
+          <div
+            key={col.bin ?? colIndex}
+            className="bklit-heatmap-column"
+            style={{ display: 'flex', flexDirection: 'column', gap: `${gap}px`, flexShrink: 0 }}
+          >
             {col.bins.map((day, dayIndex) => {
               const level = Math.min(Math.max(day.level ?? 0, 0), (levelStyles.length || 5) - 1);
               const styleObj = levelStyles[level] || levelStyles[0];
@@ -149,14 +178,19 @@ export function HeatmapCells({ cornerRadius = 2, cellSize = 11, className = '' }
               return (
                 <div
                   key={day.date || `${colIndex}-${dayIndex}`}
-                  className={`heatmap-cell transition-all duration-200 cursor-pointer ${
-                    isHovered ? 'scale-125 z-10 shadow-md ring-1 ring-white/50' : ''
-                  } ${isDimmed ? 'opacity-30' : 'opacity-100'}`}
+                  className="bklit-heatmap-cell"
                   style={{
                     width: `${cellSize}px`,
                     height: `${cellSize}px`,
                     backgroundColor: color,
                     borderRadius: `${cornerRadius}px`,
+                    flexShrink: 0,
+                    cursor: 'pointer',
+                    transition: 'transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease',
+                    opacity: isDimmed ? 0.3 : 1,
+                    transform: isHovered ? 'scale(1.25)' : 'scale(1)',
+                    zIndex: isHovered ? 10 : 1,
+                    boxShadow: isHovered ? '0 2px 8px rgba(0,0,0,0.5)' : 'none',
                   }}
                   onMouseEnter={(e) => {
                     setHoveredCell(day);
@@ -205,18 +239,34 @@ export function HeatmapXAxis({ className = '' }) {
   }, [columns]);
 
   return (
-    <div className={`heatmap-x-axis flex w-full text-[10px] text-muted-foreground font-mono mb-1 ${className}`}>
-      <div className="relative w-full h-4 overflow-hidden pl-7">
-        {months.map((m) => (
-          <span
-            key={`${m.label}-${m.index}`}
-            className="absolute opacity-75 transform -translate-x-1/2"
-            style={{ left: `calc(1.75rem + ${(m.index / Math.max(columns.length, 1)) * 90}%)` }}
-          >
-            {m.label}
-          </span>
-        ))}
-      </div>
+    <div
+      className={`bklit-heatmap-xaxis ${className}`}
+      style={{
+        display: 'flex',
+        width: '100%',
+        fontSize: '10px',
+        fontFamily: 'monospace',
+        color: 'var(--text-muted, #888888)',
+        marginBottom: '4px',
+        paddingLeft: '32px',
+        position: 'relative',
+        height: '16px',
+        overflow: 'hidden',
+      }}
+    >
+      {months.map((m) => (
+        <span
+          key={`${m.label}-${m.index}`}
+          style={{
+            position: 'absolute',
+            left: `calc(2rem + ${(m.index / Math.max(columns.length, 1)) * 90}%)`,
+            transform: 'translateX(-50%)',
+            opacity: 0.8,
+          }}
+        >
+          {m.label}
+        </span>
+      ))}
     </div>
   );
 }
@@ -225,9 +275,23 @@ export function HeatmapYAxis({ className = '' }) {
   const days = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
 
   return (
-    <div className={`heatmap-y-axis flex flex-col justify-between text-[9px] text-muted-foreground font-mono pr-1.5 select-none ${className}`} style={{ height: '89px' }}>
+    <div
+      className={`bklit-heatmap-yaxis ${className}`}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        fontSize: '9px',
+        fontFamily: 'monospace',
+        color: 'var(--text-muted, #888888)',
+        paddingRight: '6px',
+        height: '89px',
+        flexShrink: 0,
+        userSelect: 'none',
+      }}
+    >
       {days.map((d, i) => (
-        <span key={i} className="h-[11px] flex items-center opacity-70">
+        <span key={i} style={{ height: '11px', display: 'flex', alignItems: 'center', opacity: 0.7 }}>
           {d}
         </span>
       ))}
@@ -238,7 +302,7 @@ export function HeatmapYAxis({ className = '' }) {
 export function HeatmapSeparator({
   groupBy = 'quarter',
   showLabels = true,
-  labelClassName = 'text-black dark:text-white',
+  labelClassName = '',
   stroke = 'var(--border)',
   spacing = 12,
   startOffset = 14,
@@ -263,19 +327,48 @@ export function HeatmapSeparator({
   if (separators.length === 0) return null;
 
   return (
-    <div className="heatmap-separators-container pointer-events-none relative w-full h-4 mt-1">
+    <div
+      className="bklit-heatmap-separators"
+      style={{
+        pointerEvents: 'none',
+        position: 'relative',
+        width: '100%',
+        height: '16px',
+        marginTop: '4px',
+      }}
+    >
       {separators.map((sep) => (
         <div
           key={`${sep.label}-${sep.index}`}
-          className="absolute top-0 flex flex-col items-center transform -translate-x-1/2"
-          style={{ left: `calc(1.75rem + ${(sep.index / Math.max(columns.length, 1)) * 90}%)` }}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: `calc(2rem + ${(sep.index / Math.max(columns.length, 1)) * 90}%)`,
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
         >
           <div
-            className="w-px h-2 opacity-40"
-            style={{ backgroundColor: stroke }}
+            style={{
+              width: '1px',
+              height: '8px',
+              backgroundColor: stroke,
+              opacity: 0.5,
+            }}
           />
           {showLabels && (
-            <span className={`text-[9px] font-semibold opacity-75 ${labelClassName}`}>
+            <span
+              className={labelClassName}
+              style={{
+                fontSize: '9px',
+                fontWeight: 600,
+                opacity: 0.8,
+                fontFamily: 'monospace',
+                marginTop: '1px',
+              }}
+            >
               {sep.label}
             </span>
           )}
@@ -306,11 +399,28 @@ export function HeatmapTooltip({ className = '' }) {
 
   return (
     <div
-      className={`fixed z-50 pointer-events-none transform -translate-x-1/2 -translate-y-full px-2.5 py-1.5 bg-gray-900/90 dark:bg-gray-100/90 text-white dark:text-gray-900 text-[11px] font-mono rounded shadow-lg border border-gray-700/50 dark:border-gray-300/50 backdrop-blur-sm transition-all duration-100 ${className}`}
-      style={{ left: `${x}px`, top: `${y - 6}px` }}
+      className={`bklit-heatmap-tooltip ${className}`}
+      style={{
+        position: 'fixed',
+        zIndex: 10005,
+        pointerEvents: 'none',
+        transform: 'translate(-50%, -100%)',
+        left: `${x}px`,
+        top: `${y - 6}px`,
+        padding: '6px 10px',
+        backgroundColor: 'rgba(15, 23, 42, 0.95)',
+        color: '#ffffff',
+        fontSize: '11px',
+        fontFamily: 'monospace',
+        borderRadius: '6px',
+        boxShadow: '0 10px 25px rgba(0, 0, 0, 0.4)',
+        border: '1px solid rgba(255, 255, 255, 0.15)',
+        backdropFilter: 'blur(4px)',
+        transition: 'opacity 0.1s ease',
+      }}
     >
-      <div className="font-semibold">{countText}</div>
-      <div className="text-[10px] opacity-75">{formattedDate}</div>
+      <div style={{ fontWeight: 600 }}>{countText}</div>
+      <div style={{ fontSize: '10px', opacity: 0.75 }}>{formattedDate}</div>
     </div>
   );
 }
@@ -331,13 +441,25 @@ export function HeatmapLegend({
 }) {
   const { activeLevelFilter, setActiveLevelFilter } = useHeatmapContext();
 
-  const alignmentClass =
-    align === 'center' ? 'justify-center' : align === 'right' ? 'justify-end' : 'justify-start';
+  const justifyContent =
+    align === 'center' ? 'center' : align === 'right' ? 'flex-end' : 'flex-start';
 
   return (
-    <div className={`heatmap-legend flex items-center gap-2 text-[11px] text-muted-foreground font-mono mt-3 ${alignmentClass} ${className}`}>
+    <div
+      className={`bklit-heatmap-legend ${className}`}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent,
+        gap: '8px',
+        fontSize: '11px',
+        fontFamily: 'monospace',
+        color: 'var(--text-muted, #888888)',
+        marginTop: '12px',
+      }}
+    >
       <span>Less</span>
-      <div className="flex items-center" style={{ gap: `${gap}px` }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: `${gap}px` }}>
         {levelStyles.map((styleObj, index) => {
           const color = styleObj.color || `var(--chart-scale-0${index + 1})`;
           const isSelected = activeLevelFilter === index;
@@ -347,14 +469,16 @@ export function HeatmapLegend({
               type="button"
               key={index}
               aria-label={`Filter level ${index}`}
-              className={`transition-all duration-150 ${
-                isSelected ? 'ring-2 ring-emerald-500 scale-110' : 'hover:scale-110 opacity-90 hover:opacity-100'
-              }`}
               style={{
                 width: `${cellSize}px`,
                 height: `${cellSize}px`,
                 backgroundColor: color,
                 borderRadius: `${cornerRadius}px`,
+                border: isSelected ? '2px solid #10b981' : 'none',
+                cursor: 'pointer',
+                transform: isSelected ? 'scale(1.15)' : 'scale(1)',
+                transition: 'transform 0.15s ease',
+                padding: 0,
               }}
               onClick={() => {
                 setActiveLevelFilter((prev) => (prev === index ? null : index));
