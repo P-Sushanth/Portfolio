@@ -2656,4 +2656,50 @@ body.gate-active #rocket-cursor-container {
     }
 }
 
+/* GitHub Heatmap Variables & Utilities */
+:root {
+    --chart-scale-01: #161b22;
+    --chart-scale-02: #0e4429;
+    --chart-scale-03: #006d32;
+    --chart-scale-04: #26a641;
+    --chart-scale-05: #39d353;
+    --border: rgba(255, 255, 255, 0.12);
+}
+
+html.light-theme, body.light-theme {
+    --chart-scale-01: #ebedf0;
+    --chart-scale-02: #9be9a8;
+    --chart-scale-03: #40c463;
+    --chart-scale-04: #30a14e;
+    --chart-scale-05: #216e39;
+    --border: rgba(0, 0, 0, 0.12);
+}
+
+.github-heatmap-container {
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+#recruiter-github-heatmap .github-heatmap-container {
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--glass-border);
+}
+
+html.light-theme #recruiter-github-heatmap .github-heatmap-container {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+#standard-github-heatmap .github-heatmap-container {
+    margin-top: 1.5rem;
+    background: rgba(18, 18, 20, 0.4);
+    border: 1px solid var(--glass-border);
+}
+
+html.light-theme #standard-github-heatmap .github-heatmap-container {
+    background: rgba(245, 245, 247, 0.7);
+}
+
+
 
