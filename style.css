@@ -2723,12 +2723,25 @@ html.light-theme .heatmap-separator-label {
 }
 
 /* Minimal Visitor Counter (Non-Recruiter Portfolio Only) */
+footer {
+    padding: 1.5rem 0;
+    width: 100%;
+}
+
+.footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
 .minimal-visitor-counter {
     display: inline-flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem 1rem;
+    padding: 0.2rem 0.8rem;
     user-select: none;
     line-height: 1;
     text-align: center;
@@ -2736,23 +2749,23 @@ html.light-theme .heatmap-separator-label {
 
 .visitor-count-big {
     font-family: 'Unica One', 'Inter', monospace, sans-serif;
-    font-size: 2.2rem;
+    font-size: clamp(3.5rem, 6vw, 4.8rem);
     font-weight: 700;
     color: var(--text);
     letter-spacing: 0.04em;
-    line-height: 1;
-    margin-bottom: 0.25rem;
+    line-height: 0.88;
+    margin-bottom: 0.15rem;
     transition: color 0.3s ease;
 }
 
 .visitor-count-label {
     font-family: 'Inter', sans-serif;
-    font-size: 0.62rem;
+    font-size: 0.65rem;
     font-weight: 600;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.25em;
     color: var(--text);
     text-transform: uppercase;
-    opacity: 0.5;
+    opacity: 0.55;
 }
 
 
