@@ -445,8 +445,9 @@ document.addEventListener('DOMContentLoaded', () => {
             card.addEventListener('mouseenter', (e) => {
                 if (!cursorPreview || !previewImg) return;
                 
-                // Set image source
-                previewImg.src = previewSrc;
+                // Set image source (clean any legacy public/ prefix)
+                const cleanSrc = previewSrc.replace(/^public\//, '');
+                previewImg.src = cleanSrc;
                 isPreviewActive = true;
                 
                 // Initialize position on first hover
@@ -670,70 +671,70 @@ document.addEventListener('DOMContentLoaded', () => {
         'ai-revenue-recovery': {
             title: 'AI Revenue Recovery Engine',
             tags: ['AI Agent', 'SaaS', 'Ollama (Qwen 9B)', 'Next.js 16', 'Supabase'],
-            img: 'public/AI_Revenue_Recovery.png',
+            img: 'AI_Revenue_Recovery.png',
             description: 'An autonomous billing intervention platform that detects subscription payment failures, diagnoses unstructured raw bank decline logs (HDFC velocity caps, RBI e-mandate freezes) using a local LLM (qwen3.5:9b via Ollama), enforces deterministic policy guardrails, and dispatches secure single-click payment recovery links.',
             link: 'https://github.com/P-Sushanth/AI_Revenue_Recovery'
         },
         'autoportfolio': {
             title: 'AutoPortfolio',
             tags: ['SaaS', 'React', 'Next.js', 'Vercel', 'TailwindCSS'],
-            img: 'public/autoportfolio.png',
+            img: 'portlio.png',
             description: 'AutoPortfolio is a SaaS platform that helps developers, students, and professionals create and deploy modern portfolio websites in minutes without dealing with design complexity, hosting setup, or frontend development.',
             link: 'https://auto-portfolio-rho.vercel.app/'
         },
         'password-visualizer': {
             title: 'Password Strength Visualizer',
             tags: ['JavaScript', 'Security', 'UI'],
-            img: 'public/password.PNG',
+            img: 'password.PNG',
             description: 'An interactive tool that provides instant visual feedback on password entropy and complexity, helping users understand security patterns through dynamic UI transitions.',
             link: 'https://p-sushanth.github.io/Password-Strength-Visualizer/'
         },
         'cognitive-monitor': {
             title: 'Cognitive Load Monitor',
             tags: ['React', 'Analysis', 'UX'],
-            img: 'public/cognitive_load_monitor.PNG',
+            img: 'cognitive_load_monitor.PNG',
             description: 'A sophisticated monitoring dashboard built with React that tracks user cognitive performance metrics during complex task execution using real-time data processing.',
             link: 'https://cognitive-load-monitor.onrender.com'
         },
         'multi-calculator': {
             title: 'Multi-Functional Calculator',
             tags: ['Web App', 'Logic', 'ES6+'],
-            img: 'public/multi_functional_calculator.PNG',
+            img: 'multi_functional_calculator.PNG',
             description: 'A comprehensive suite of calculation tools designed for scientific and specialized logical operations, featuring a clean, modular architecture.',
             link: 'https://p-sushanth.github.io/Multi-Functional-Calculator/'
         },
         'typing-test': {
             title: 'Typing Test',
             tags: ['Performance', 'UI', 'UX'],
-            img: 'public/typing_test.PNG',
+            img: 'typing_test.PNG',
             description: 'A minimalist typing performance tool that measures WPM and accuracy with live feedback, optimized for a smooth, distraction-free user experience.',
             link: 'https://p-sushanth.github.io/Typing-Test/'
         },
         'genz-projects': {
             title: 'GENZ PROJECTS',
             tags: ['Design', 'Portfolio', 'Modern UI'],
-            img: 'public/GENZ_Projects.PNG',
+            img: 'GENZ_Projects.PNG',
             description: 'A curated showcase of experimental web designs and avant-garde UI components, pushing the boundaries of modern front-end aesthetics.',
             link: 'https://p-sushanth.github.io/GENZ-Projects/'
         },
         'ai-legislative': {
             title: 'AI Legislative Analyser',
             tags: ['AI', 'LLM', 'LegalTech'],
-            img: 'public/AI_Legislative_Analyser.PNG',
+            img: 'AI_Legislative_Analyser.PNG',
             description: 'A high-end NLP application that uses Large Language Models to parse and summarize complex legislative texts, enhancing legal transparency and accessibility.',
             link: 'https://huggingface.co/spaces/Sushanth-27/The_AI_Legislative_Analyzer'
         },
         'geopopulation': {
             title: 'GeoPopulation Explorer',
             tags: ['React', 'D3.js', 'DataViz'],
-            img: 'public/GeoPopulation_Explorer.PNG',
+            img: 'GeoPopulation_Explorer.PNG',
             description: 'An expansive interactive visualization tool for global demographic shifts, utilizing D3.js for high-fidelity geographic data mapping and React for state management.',
             link: 'https://population-pyramid-34p9z13j6-sushanths-projects-e33b8b82.vercel.app/'
         },
         'quantum-fraud': {
             title: 'Quantum Fraud Detection',
             tags: ['Quantum', 'Qiskit', 'Security'],
-            img: 'public/Quantum_Fraud_Detection.PNG',
+            img: 'Quantum_Fraud_Detection.PNG',
             description: 'An innovative research project demonstrating the application of Quantum Machine Learning (QML) to detect financial fraud patterns with superior precision.',
             link: 'https://huggingface.co/spaces/Sushanth-27/quantum-fraud-detection'
         }
@@ -960,10 +961,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     initRocketCursor();
 
-    // Genuine Visitor Counter (Non-Recruiter View Only)
+    // Genuine Visitor Counter (Updates all counter elements across views)
     function initVisitorCounter() {
-        const countElement = document.getElementById('visitor-count-number');
-        if (!countElement) return;
+        const countElements = document.querySelectorAll('.visitor-count');
+        if (countElements.length === 0) return;
 
         const KEY = 'p-sushanth-portfolio-visits';
         const hasVisited = sessionStorage.getItem('visited_session');
@@ -978,7 +979,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(data => {
                 if (data && typeof data.value === 'number') {
-                    animateCount(countElement, data.value);
+                    countElements.forEach(el => animateCount(el, data.value));
                     sessionStorage.setItem('visited_session', 'true');
                 } else {
                     throw new Error('Invalid count response');
@@ -990,14 +991,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     .then(svgText => {
                         const match = svgText.match(/VISITORS:\s*(\d+)/i) || svgText.match(/font-weight="bold">(\d+)</);
                         if (match && match[1]) {
-                            animateCount(countElement, parseInt(match[1], 10));
+                            const val = parseInt(match[1], 10);
+                            countElements.forEach(el => animateCount(el, val));
                             sessionStorage.setItem('visited_session', 'true');
                         } else {
-                            countElement.textContent = 'Active';
+                            countElements.forEach(el => el.textContent = 'Active');
                         }
                     })
                     .catch(() => {
-                        countElement.textContent = 'Active';
+                        countElements.forEach(el => el.textContent = 'Active');
                     });
             });
     }
