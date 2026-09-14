@@ -2722,6 +2722,61 @@ html.light-theme .heatmap-separator-label {
     overflow-y: hidden !important;
 }
 
+/* Visitor Counter Badge (Non-Recruiter Portfolio Only) */
+.visitor-counter-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.85rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.12));
+    border-radius: 20px;
+    font-family: 'Unica One', monospace, sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    color: var(--text);
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+html.light-theme .visitor-counter-badge {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.12);
+}
+
+.visitor-counter-badge:hover {
+    border-color: var(--text);
+    transform: translateY(-1px);
+}
+
+.visitor-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #10b981;
+    box-shadow: 0 0 8px #10b981;
+    display: inline-block;
+    animation: pulse-dot 2s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.75); }
+}
+
+.visitor-label {
+    opacity: 0.65;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+}
+
+.visitor-count {
+    font-weight: 600;
+    color: var(--text);
+}
+
+
 
 
 

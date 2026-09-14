@@ -959,4 +959,70 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(updateRocket);
     }
     initRocketCursor();
+
+    // Genuine Visitor Counter (Non-Recruiter View Only)
+    function initVisitorCounter() {
+        const countElement = document.getElementById('visitor-count-number');
+        if (!countElement) return;
+
+        const KEY = 'p-sushanth-portfolio-visits';
+        const hasVisited = sessionStorage.getItem('visited_session');
+        const endpoint = hasVisited 
+            ? `https://countapi.mileshilliard.com/api/v1/get/${KEY}`
+            : `https://countapi.mileshilliard.com/api/v1/hit/${KEY}`;
+
+        fetch(endpoint)
+            .then(res => {
+                if (!res.ok) throw new Error('Primary counter failed');
+                return res.json();
+            })
+            .then(data => {
+                if (data && typeof data.value === 'number') {
+                    animateCount(countElement, data.value);
+                    sessionStorage.setItem('visited_session', 'true');
+                } else {
+                    throw new Error('Invalid count response');
+                }
+            })
+            .catch(() => {
+                fetch('https://api.visitorbadge.io/api/visitors?path=sushanth-portfolio&label=VISITORS')
+                    .then(res => res.text())
+                    .then(svgText => {
+                        const match = svgText.match(/VISITORS:\s*(\d+)/i) || svgText.match(/font-weight="bold">(\d+)</);
+                        if (match && match[1]) {
+                            animateCount(countElement, parseInt(match[1], 10));
+                            sessionStorage.setItem('visited_session', 'true');
+                        } else {
+                            countElement.textContent = 'Active';
+                        }
+                    })
+                    .catch(() => {
+                        countElement.textContent = 'Active';
+                    });
+            });
+    }
+
+    function animateCount(element, target) {
+        let current = 0;
+        const duration = 1200;
+        const startTime = performance.now();
+
+        function update(now) {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const ease = 1 - Math.pow(1 - progress, 3);
+            current = Math.floor(ease * target);
+            element.textContent = current.toLocaleString();
+
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            } else {
+                element.textContent = target.toLocaleString();
+            }
+        }
+        requestAnimationFrame(update);
+    }
+
+    initVisitorCounter();
 });
+
